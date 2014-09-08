@@ -49,15 +49,15 @@ var err = new createError.NotFound();
 - `code` - the status code as a number
 - `name` - the name of the error as a "bumpy case", i.e. `NotFound` or `InternalServerError`.
 
-[npm-image]: https://img.shields.io/npm/v/http-error.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/http-error
-[travis-image]: https://img.shields.io/travis/jonathanong/http-error.svg?style=flat-square
-[travis-url]: https://travis-ci.org/jonathanong/http-error
-[coveralls-image]: https://img.shields.io/coveralls/jonathanong/http-error.svg?style=flat-square
-[coveralls-url]: https://coveralls.io/r/jonathanong/http-error?branch=master
-[david-image]: http://img.shields.io/david/jonathanong/http-error.svg?style=flat-square
-[david-url]: https://david-dm.org/jonathanong/http-error
-[license-image]: http://img.shields.io/npm/l/http-error.svg?style=flat-square
+[npm-image]: https://img.shields.io/npm/v/http-errors.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/http-errors
+[travis-image]: https://img.shields.io/travis/jshttp/http-errors.svg?style=flat-square
+[travis-url]: https://travis-ci.org/jshttp/http-errors
+[coveralls-image]: https://img.shields.io/coveralls/jshttp/http-errors.svg?style=flat-square
+[coveralls-url]: https://coveralls.io/r/jshttp/http-errors?branch=master
+[david-image]: http://img.shields.io/david/jshttp/http-errors.svg?style=flat-square
+[david-url]: https://david-dm.org/jshttp/http-errors
+[license-image]: http://img.shields.io/npm/l/http-errors.svg?style=flat-square
 [license-url]: LICENSE
-[downloads-image]: http://img.shields.io/npm/dm/http-error.svg?style=flat-square
-[downloads-url]: https://npmjs.org/package/http-error
+[downloads-image]: http://img.shields.io/npm/dm/http-errors.svg?style=flat-square
+[downloads-url]: https://npmjs.org/package/http-errors
