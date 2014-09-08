@@ -35,6 +35,13 @@ describe('HTTP Errors', function () {
     assert.equal(err.statusCode, 404);
   })
 
+  it('create(msg)', function () {
+    var err = create('LOL');
+    assert.equal(err.message, 'LOL');
+    assert.equal(err.status, 500);
+    assert.equal(err.statusCode, 500);
+  })
+
   it('create(status, err, props)', function () {
     var _err = new Error('LOL');
     var err = create(404, _err, {

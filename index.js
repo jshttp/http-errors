@@ -17,6 +17,12 @@ exports = module.exports = function (status, msg, props) {
     status = tmp;
   }
 
+  // create(msg);
+  if ('string' == typeof status) {
+    msg = status;
+    status = 500;
+  }
+
   props = props || {};
   var err = msg instanceof Error
     ? msg
