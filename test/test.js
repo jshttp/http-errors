@@ -1,5 +1,6 @@
 
 var assert = require('assert');
+var util = require('util');
 
 var create = require('..');
 
@@ -157,5 +158,17 @@ describe('HTTP Errors', function () {
 
     var err = new create[500]();
     assert.equal(Object.prototype.toString.call(err), '[object Error]')
+  })
+
+  it('should support err instanceof Error', function () {
+    assert(create(404) instanceof Error);
+    assert((new create['404']()) instanceof Error);
+    assert((new create['500']()) instanceof Error);
+  })
+
+  it('should support util.isError()', function () {
+    assert(util.isError(create(404)));
+    assert(util.isError(new create['404']()));
+    assert(util.isError(new create['500']()));
   })
 })
