@@ -2,39 +2,36 @@
 var statuses = require('statuses');
 var inherits = require('util').inherits;
 
-exports = module.exports = function (status, msg, props) {
-  // create(props, [msg])
-  if ('object' == typeof status && !(status instanceof Error)) {
-    props = status;
-    status = null;
+exports = module.exports = function () {
+  // so much arity going on ~_~
+  var err;
+  var msg;
+  var status = 500;
+  var props = {};
+  for (var i = 0; i < arguments.length; i++) {
+    var arg = arguments[i];
+    if (arg instanceof Error) {
+      err = arg;
+      status = err.status || err.statusCode || status;
+      continue;
+    }
+    switch (typeof arg) {
+      case 'string':
+        msg = arg;
+        break;
+      case 'number':
+        status = arg;
+        break;
+      case 'object':
+        props = arg;
+        break;
+    }
   }
 
-  // create(msg, status, [props])
-  // this should be removed, but remains for koa backwards compat
-  if ('number' == typeof msg) {
-    var tmp = msg;
-    msg = status || statuses[tmp];
-    status = tmp;
-  }
-
-  // create(msg, [props]);
-  if ('string' == typeof status || status instanceof Error) {
-    props = msg;
-    msg = status;
-    status = null;
-  }
-
-  props = props || {};
-  var err = msg instanceof Error
-    ? msg
-    : new Error(msg || statuses[status || 500]);
+  if (typeof status !== 'number' || !statuses[status]) status = 500;
+  err = err || new Error(msg || statuses[status]);
   for (var key in props) err[key] = props[key];
-
-  status = status || err.status;
-  err.status = err.statusCode = 'number' == typeof status && statuses[status]
-    ? status
-    : 500;
-
+  err.status = err.statusCode = status;
   err.expose = err.status < 500;
   return err;
 };

@@ -18,6 +18,16 @@ describe('HTTP Errors', function () {
     assert.equal(err.statusCode, 404);
   })
 
+  it('create(status, props)', function () {
+    var err = create(404, {
+      id: 1
+    })
+    assert.equal(err.message, 'Not Found');
+    assert.equal(err.status, 404);
+    assert.equal(err.statusCode, 404);
+    assert.equal(1, err.id);
+  })
+
   it('create(props)', function () {
     var err = create({
       id: 1
