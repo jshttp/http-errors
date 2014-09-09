@@ -42,12 +42,59 @@ describe('HTTP Errors', function () {
     assert.equal(err.statusCode, 500);
   })
 
+  it('create(msg, props)', function () {
+    var err = create('LOL', {
+      id: 1
+    });
+    assert.equal(err.message, 'LOL');
+    assert.equal(err.status, 500);
+    assert.equal(err.statusCode, 500);
+    assert.equal(err.id, 1);
+  })
+
+  it ('create(err)', function () {
+    var _err = new Error('LOL');
+    _err.status = 404;
+    var err = create(_err);
+    assert.equal(err.message, 'LOL');
+    assert.equal(err.status, 404);
+    assert.equal(err.expose, true);
+
+    _err = new Error('LOL');
+    err = create(_err);
+    assert.equal(err.message, 'LOL');
+    assert.equal(err.status, 500);
+    assert.equal(err.statusCode, 500);
+    assert.equal(err.expose, false);
+  })
+
+  it('create(err, props)', function () {
+    var _err = new Error('LOL');
+    _err.status = 404;
+    var err = create(_err, {
+      id: 1
+    });
+    assert.equal(err.message, 'LOL');
+    assert.equal(err.status, 404);
+    assert.equal(err.id, 1);
+    assert.equal(err.expose, true);
+  })
+
   it('create(status, err, props)', function () {
     var _err = new Error('LOL');
     var err = create(404, _err, {
       id: 1
     });
     assert.equal(err, _err);
+    assert.equal(err.message, 'LOL');
+    assert.equal(err.status, 404);
+    assert.equal(err.statusCode, 404);
+  })
+
+  it('create(status, msg, props)', function () {
+    var err = create(404, 'LOL', {
+      id: 1
+    });
     assert.equal(err.message, 'LOL');
     assert.equal(err.status, 404);
     assert.equal(err.statusCode, 404);
