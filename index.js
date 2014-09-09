@@ -44,9 +44,10 @@ var codes = statuses.codes.filter(function (num) {
 codes.forEach(function (code) {
   if (code >= 500) {
     var ServerError = function ServerError(msg) {
-      Error.call(this);
-      this.message = msg || statuses[code];
-      Error.captureStackTrace(this, arguments.callee);
+      var self = new Error(msg != null ? msg : statuses[code])
+      Error.captureStackTrace(self, arguments.callee)
+      self.__proto__ = ServerError.prototype
+      return self
     }
     inherits(ServerError, Error);
     ServerError.prototype.status =
@@ -58,9 +59,10 @@ codes.forEach(function (code) {
   }
 
   var ClientError = function ClientError(msg) {
-    Error.call(this);
-    this.message = msg || statuses[code];
-    Error.captureStackTrace(this, arguments.callee);
+    var self = new Error(msg != null ? msg : statuses[code])
+    Error.captureStackTrace(self, arguments.callee)
+    self.__proto__ = ClientError.prototype
+    return self
   }
   inherits(ClientError, Error);
   ClientError.prototype.status =

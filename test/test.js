@@ -147,4 +147,15 @@ describe('HTTP Errors', function () {
     assert.equal(err.statusCode, 404);
     assert(err.stack);
   })
+
+  it('should preserve error [[Class]]', function () {
+    var err = new create('LOL');
+    assert.equal(Object.prototype.toString.call(err), '[object Error]')
+
+    var err = new create[404]();
+    assert.equal(Object.prototype.toString.call(err), '[object Error]')
+
+    var err = new create[500]();
+    assert.equal(Object.prototype.toString.call(err), '[object Error]')
+  })
 })
