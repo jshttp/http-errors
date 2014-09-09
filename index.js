@@ -1,15 +1,15 @@
 
-var assert = require('assert');
 var statuses = require('statuses');
 var inherits = require('util').inherits;
 
 exports = module.exports = function (status, msg, props) {
+  // create(props, [msg])
   if ('object' == typeof status && !(status instanceof Error)) {
     props = status;
     status = null;
   }
 
-  // create(msg, status)
+  // create(msg, status, [props])
   // this should be removed, but remains for koa backwards compat
   if ('number' == typeof msg) {
     var tmp = msg;
@@ -17,10 +17,11 @@ exports = module.exports = function (status, msg, props) {
     status = tmp;
   }
 
-  // create(msg);
-  if ('string' == typeof status) {
+  // create(msg, [props]);
+  if ('string' == typeof status || status instanceof Error) {
+    props = msg;
     msg = status;
-    status = 500;
+    status = null;
   }
 
   props = props || {};
@@ -28,11 +29,13 @@ exports = module.exports = function (status, msg, props) {
     ? msg
     : new Error(msg || statuses[status || 500]);
   for (var key in props) err[key] = props[key];
-  err.status = err.statusCode = status || err.status || 500;
-  assert(statuses(err.status), 'invalid status code');
-  err.expose = 'number' === typeof err.status
-    && statuses[err.status]
-    && err.status < 500;
+
+  status = status || err.status;
+  err.status = err.statusCode = 'number' == typeof status && statuses[status]
+    ? status
+    : 500;
+
+  err.expose = err.status < 500;
   return err;
 };
 
