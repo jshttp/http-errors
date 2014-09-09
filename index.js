@@ -30,9 +30,10 @@ exports = module.exports = function () {
 
   if (typeof status !== 'number' || !statuses[status]) status = 500;
   err = err || new Error(msg || statuses[status]);
+  err = err || new Error(msg || statuses[status]);
+  err.expose = status < 500;
   for (var key in props) err[key] = props[key];
   err.status = err.statusCode = status;
-  err.expose = err.status < 500;
   return err;
 };
 

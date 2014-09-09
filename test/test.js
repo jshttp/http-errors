@@ -125,6 +125,13 @@ describe('HTTP Errors', function () {
     assert.equal(err.statusCode, 404);
   })
 
+  it('create(status, msg, { expose: false })', function () {
+    var err = create(404, 'LOL', {
+      expose: false
+    })
+    assert.equal(err.expose, false)
+  })
+
   it('new create.NotFound()', function () {
     var err = new create.NotFound();
     assert.equal(err.message, 'Not Found');
