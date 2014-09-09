@@ -56,13 +56,27 @@ describe('HTTP Errors', function () {
     var _err = new Error('LOL');
     _err.status = 404;
     var err = create(_err);
+    assert.equal(err, _err);
     assert.equal(err.message, 'LOL');
     assert.equal(err.status, 404);
     assert.equal(err.expose, true);
 
     _err = new Error('LOL');
     err = create(_err);
+    assert.equal(err, _err);
     assert.equal(err.message, 'LOL');
+    assert.equal(err.status, 500);
+    assert.equal(err.statusCode, 500);
+    assert.equal(err.expose, false);
+  })
+
+
+  it('create(err) with invalid err.status', function () {
+    var _err = new Error('Connection refused');
+    _err.status = -1;
+    var err = create(_err);
+    assert.equal(err, _err);
+    assert.equal(err.message, 'Connection refused');
     assert.equal(err.status, 500);
     assert.equal(err.statusCode, 500);
     assert.equal(err.expose, false);

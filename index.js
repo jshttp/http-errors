@@ -1,5 +1,4 @@
 
-var assert = require('assert');
 var statuses = require('statuses');
 var inherits = require('util').inherits;
 
@@ -30,11 +29,13 @@ exports = module.exports = function (status, msg, props) {
     ? msg
     : new Error(msg || statuses[status || 500]);
   for (var key in props) err[key] = props[key];
-  err.status = err.statusCode = status || err.status || 500;
-  assert(statuses(err.status), 'invalid status code');
-  err.expose = 'number' === typeof err.status
-    && statuses[err.status]
-    && err.status < 500;
+
+  status = status || err.status;
+  err.status = err.statusCode = 'number' == typeof status && statuses[status]
+    ? status
+    : 500;
+
+  err.expose = err.status < 500;
   return err;
 };
 
