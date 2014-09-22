@@ -11,6 +11,7 @@
   "license": "MIT",
   "repository": "jshttp/http-errors",
   "dependencies": {
+    "inherits": "^2.0.1",
     "statuses": "~1.0.4"
   },
   "devDependencies": {
