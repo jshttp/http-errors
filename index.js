@@ -68,7 +68,7 @@ codes.forEach(function (code) {
   inherits(ClientError, Error);
   ClientError.prototype.status =
   ClientError.prototype.statusCode = code;
-  ClientError.prototype.expose = false;
+  ClientError.prototype.expose = true;
   exports[code] =
   exports[statuses[code].replace(/\s+/g, '')] = ClientError;
   return;

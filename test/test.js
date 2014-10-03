@@ -1,4 +1,3 @@
-
 var assert = require('assert');
 var util = require('util');
 
@@ -137,6 +136,7 @@ describe('HTTP Errors', function () {
     assert.equal(err.message, 'Not Found');
     assert.equal(err.status, 404);
     assert.equal(err.statusCode, 404);
+    assert.equal(err.expose, true);
     assert(err.stack);
   })
 
@@ -145,6 +145,7 @@ describe('HTTP Errors', function () {
     assert.equal(err.message, 'Internal Server Error');
     assert.equal(err.status, 500);
     assert.equal(err.statusCode, 500);
+    assert.equal(err.expose, false);
     assert(err.stack);
   })
 
@@ -153,6 +154,7 @@ describe('HTTP Errors', function () {
     assert.equal(err.message, 'Not Found');
     assert.equal(err.status, 404);
     assert.equal(err.statusCode, 404);
+    assert.equal(err.expose, true);
     assert(err.stack);
   })
 
