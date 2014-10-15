@@ -1,7 +1,7 @@
 {
   "name": "http-errors",
   "description": "Create HTTP error objects",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "author": {
     "name": "Jonathan Ong",
     "email": "me@jongleberry.com",
