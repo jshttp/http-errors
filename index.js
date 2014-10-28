@@ -65,11 +65,20 @@ var codes = statuses.codes.filter(function (num) {
 });
 
 codes.forEach(function (code) {
+  var name = toIdentifier(statuses[code])
+  var className = name.match(/Error$/) ? name : name + 'Error'
+
   if (code >= 500) {
     var ServerError = function ServerError(msg) {
       var self = new Error(msg != null ? msg : statuses[code])
       Error.captureStackTrace(self, ServerError)
       self.__proto__ = ServerError.prototype
+      Object.defineProperty(self, 'name', {
+        enumerable: false,
+        configurable: true,
+        value: className,
+        writable: true
+      })
       return self
     }
     inherits(ServerError, Error);
@@ -77,7 +86,7 @@ codes.forEach(function (code) {
     ServerError.prototype.statusCode = code;
     ServerError.prototype.expose = false;
     exports[code] =
-    exports[toIdentifier(statuses[code])] = ServerError
+    exports[name] = ServerError
     return;
   }
 
@@ -85,6 +94,12 @@ codes.forEach(function (code) {
     var self = new Error(msg != null ? msg : statuses[code])
     Error.captureStackTrace(self, ClientError)
     self.__proto__ = ClientError.prototype
+    Object.defineProperty(self, 'name', {
+      enumerable: false,
+      configurable: true,
+      value: className,
+      writable: true
+    })
     return self
   }
   inherits(ClientError, Error);
@@ -92,7 +107,7 @@ codes.forEach(function (code) {
   ClientError.prototype.statusCode = code;
   ClientError.prototype.expose = true;
   exports[code] =
-  exports[toIdentifier(statuses[code])] = ClientError
+  exports[name] = ClientError
   return;
 });
 

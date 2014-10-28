@@ -4,6 +4,7 @@ unreleased
   * Construct errors using defined constructors from `createError`
   * Fix error names that are not identifiers
     - `createError["I'mateapot"]` is now `createError.ImATeapot`
+  * Set a meaningful `name` property on constructed errors
 
 2014-12-09 / 1.2.8
 ==================
