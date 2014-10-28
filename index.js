@@ -2,6 +2,12 @@
 var statuses = require('statuses');
 var inherits = require('inherits');
 
+function toIdentifier(str) {
+  return str.split(' ').map(function (token) {
+    return token.slice(0, 1).toUpperCase() + token.slice(1)
+  }).join('').replace(/[^ _0-9a-z]/gi, '')
+}
+
 exports = module.exports = function httpError() {
   // so much arity going on ~_~
   var err;
@@ -60,7 +66,7 @@ codes.forEach(function (code) {
     ServerError.prototype.statusCode = code;
     ServerError.prototype.expose = false;
     exports[code] =
-    exports[statuses[code].replace(/\s+/g, '')] = ServerError;
+    exports[toIdentifier(statuses[code])] = ServerError
     return;
   }
 
@@ -75,6 +81,9 @@ codes.forEach(function (code) {
   ClientError.prototype.statusCode = code;
   ClientError.prototype.expose = true;
   exports[code] =
-  exports[statuses[code].replace(/\s+/g, '')] = ClientError;
+  exports[toIdentifier(statuses[code])] = ClientError
   return;
 });
+
+// backwards-compatibility
+exports["I'mateapot"] = exports.ImATeapot

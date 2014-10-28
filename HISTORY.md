@@ -1,3 +1,9 @@
+unreleased
+==========
+
+  * Fix error names that are not identifiers
+    - `createError["I'mateapot"]` is now `createError.ImATeapot`
+
 2014-12-09 / 1.2.8
 ==================
 
