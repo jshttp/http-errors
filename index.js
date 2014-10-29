@@ -5,47 +5,47 @@ var inherits = require('inherits');
 function toIdentifier(str) {
   return str.split(' ').map(function (token) {
     return token.slice(0, 1).toUpperCase() + token.slice(1);
-  }).join('').replace(/[^ _0-9a-z]/gi, '');
+  }).join('').replace(/[^ _0-9a-z]/gi, '')
 }
 
 exports = module.exports = function () {
   // so much arity going on ~_~
-  var err;
-  var msg;
-  var status = 500;
-  var props = {};
+  var err
+  var msg
+  var status = 500
+  var props = {}
   for (var i = 0; i < arguments.length; i++) {
-    var arg = arguments[i];
+    var arg = arguments[i]
     if (arg instanceof Error) {
-      err = arg;
-      status = err.status || err.statusCode || status;
-      continue;
+      err = arg
+      status = err.status || err.statusCode || status
+      continue
     }
     switch (typeof arg) {
       case 'string':
-        msg = arg;
-        break;
+        msg = arg
+        break
       case 'number':
-        status = arg;
-        break;
+        status = arg
+        break
       case 'object':
-        props = arg;
-        break;
+        props = arg
+        break
     }
   }
 
-  if (typeof status !== 'number' || !statuses[status]) status = 500;
-  err = err || new Error(msg || statuses[status]);
-  err.expose = status < 500;
-  for (var key in props) err[key] = props[key];
-  err.status = err.statusCode = status;
-  return err;
+  if (typeof status !== 'number' || !statuses[status]) status = 500
+  err = err || new Error(msg || statuses[status])
+  err.expose = status < 500
+  for (var key in props) err[key] = props[key]
+  err.status = err.statusCode = status
+  return err
 };
 
 // create generic error objects
 var codes = statuses.codes.filter(function (num) {
-  return num >= 400;
-});
+  return num >= 400
+})
 
 codes.forEach(function (code) {
   if (code >= 500) {
@@ -55,13 +55,13 @@ codes.forEach(function (code) {
       self.__proto__ = ServerError.prototype
       return self
     }
-    inherits(ServerError, Error);
+    inherits(ServerError, Error)
     ServerError.prototype.status =
-    ServerError.prototype.statusCode = code;
-    ServerError.prototype.expose = false;
+    ServerError.prototype.statusCode = code
+    ServerError.prototype.expose = false
     exports[code] =
-    exports[toIdentifier(statuses[code])] = ServerError;
-    return;
+    exports[toIdentifier(statuses[code])] = ServerError
+    return
   }
 
   var ClientError = function ClientError(msg) {
@@ -70,11 +70,11 @@ codes.forEach(function (code) {
     self.__proto__ = ClientError.prototype
     return self
   }
-  inherits(ClientError, Error);
+  inherits(ClientError, Error)
   ClientError.prototype.status =
-  ClientError.prototype.statusCode = code;
-  ClientError.prototype.expose = true;
+  ClientError.prototype.statusCode = code
+  ClientError.prototype.expose = true
   exports[code] =
-  exports[toIdentifier(statuses[code])] = ClientError;
-  return;
+  exports[toIdentifier(statuses[code])] = ClientError
+  return
 });
