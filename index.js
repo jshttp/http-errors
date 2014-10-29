@@ -2,7 +2,7 @@
 var statuses = require('statuses');
 var inherits = require('inherits');
 
-exports = module.exports = function () {
+exports = module.exports = function httpError() {
   // so much arity going on ~_~
   var err;
   var msg;
@@ -29,7 +29,13 @@ exports = module.exports = function () {
   }
 
   if (typeof status !== 'number' || !statuses[status]) status = 500;
-  err = err || new Error(msg || statuses[status]);
+
+  if (!err) {
+    // create error
+    err = new Error(msg || statuses[status])
+    Error.captureStackTrace(err, httpError)
+  }
+
   err.expose = status < 500;
   for (var key in props) err[key] = props[key];
   err.status = err.statusCode = status;
