@@ -51,7 +51,7 @@ codes.forEach(function (code) {
   if (code >= 500) {
     var ServerError = function ServerError(msg) {
       var self = new Error(msg != null ? msg : statuses[code])
-      Error.captureStackTrace(self, arguments.callee)
+      Error.captureStackTrace(self, ServerError)
       self.__proto__ = ServerError.prototype
       return self
     }
@@ -66,7 +66,7 @@ codes.forEach(function (code) {
 
   var ClientError = function ClientError(msg) {
     var self = new Error(msg != null ? msg : statuses[code])
-    Error.captureStackTrace(self, arguments.callee)
+    Error.captureStackTrace(self, ClientError)
     self.__proto__ = ClientError.prototype
     return self
   }
