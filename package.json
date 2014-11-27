@@ -32,6 +32,8 @@
   ],
   "files": [
     "index.js",
-    "LICENSE"
+    "HISTORY.md",
+    "LICENSE",
+    "README.md"
   ]
 }
