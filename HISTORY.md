@@ -1,3 +1,9 @@
+2014-12-09 / 1.2.8
+==================
+
+  * Fix stack trace from exported function
+  * Remove `arguments.callee` usage
+
 2014-10-14 / 1.2.7
 ==================
 
