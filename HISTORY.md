@@ -1,5 +1,5 @@
-unreleased
-==========
+2015-02-01 / 1.3.0
+==================
 
   * Construct errors using defined constructors from `createError`
   * Fix error names that are not identifiers
