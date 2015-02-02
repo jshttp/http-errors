@@ -1,6 +1,7 @@
 unreleased
 ==========
 
+  * Construct errors using defined constructors from `createError`
   * Fix error names that are not identifiers
     - `createError["I'mateapot"]` is now `createError.ImATeapot`
 

@@ -34,17 +34,28 @@ exports = module.exports = function httpError() {
     }
   }
 
-  if (typeof status !== 'number' || !statuses[status]) status = 500;
+  if (typeof status !== 'number' || !statuses[status]) {
+    status = 500
+  }
+
+  // constructor
+  var HttpError = exports[status]
 
   if (!err) {
     // create error
-    err = new Error(msg || statuses[status])
+    err = HttpError
+      ? new HttpError(msg)
+      : new Error(msg || statuses[status])
     Error.captureStackTrace(err, httpError)
   }
 
-  err.expose = status < 500;
+  if (!HttpError || !(err instanceof HttpError)) {
+    // add properties to generic error
+    err.expose = status < 500
+    err.status = err.statusCode = status
+  }
+
   for (var key in props) err[key] = props[key];
-  err.status = err.statusCode = status;
   return err;
 };
 
