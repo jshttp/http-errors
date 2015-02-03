@@ -55,7 +55,12 @@ exports = module.exports = function httpError() {
     err.status = err.statusCode = status
   }
 
-  for (var key in props) err[key] = props[key];
+  for (var key in props) {
+    if (key !== 'status' && key !== 'statusCode') {
+      err[key] = props[key]
+    }
+  }
+
   return err;
 };
 

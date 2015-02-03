@@ -31,6 +31,30 @@ describe('HTTP Errors', function () {
     assert.equal(1, err.id);
   })
 
+  it('create(status, props) with status prop', function () {
+    var err = create(404, {
+      id: 1,
+      status: 500
+    })
+    assert.equal(err.name, 'NotFoundError')
+    assert.equal(err.message, 'Not Found');
+    assert.equal(err.status, 404);
+    assert.equal(err.statusCode, 404);
+    assert.equal(1, err.id);
+  })
+
+  it('create(status, props) with statusCode prop', function () {
+    var err = create(404, {
+      id: 1,
+      statusCode: 500
+    })
+    assert.equal(err.name, 'NotFoundError')
+    assert.equal(err.message, 'Not Found');
+    assert.equal(err.status, 404);
+    assert.equal(err.statusCode, 404);
+    assert.equal(1, err.id);
+  })
+
   it('create(props)', function () {
     var err = create({
       id: 1
