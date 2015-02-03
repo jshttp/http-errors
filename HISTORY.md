@@ -1,5 +1,5 @@
-unreleased
-==========
+2015-02-02 / 1.3.1
+==================
 
   * Fix regression where status can be overwritten in `createError` `props`
 
