@@ -12,6 +12,13 @@ describe('HTTP Errors', function () {
     assert.equal(err.statusCode, 404);
   })
 
+  it('create(status) for 300', function () {
+    var err = create(300);
+    assert.equal(err.message, 'Multiple Choices');
+    assert.equal(err.status, 300);
+    assert.equal(err.statusCode, 300);
+  })
+
   it('create(status, msg)', function () {
     var err = create(404, 'LOL');
     assert.equal(err.name, 'NotFoundError')
