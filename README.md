@@ -25,6 +25,7 @@ This is the current API, currently extracted from Koa and subject to change.
 
 ### Error Properties
 
+- `expose` - can be used to signal if `message` should be sent to the client, defaulting to `false` when `status` >= 500
 - `message`
 - `status` and `statusCode` - the status code of the error, defaulting to `500`
 
