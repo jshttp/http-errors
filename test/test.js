@@ -6,7 +6,7 @@ var create = require('..');
 describe('HTTP Errors', function () {
   it('create(status)', function () {
     var err = create(404);
-    assert.equal(err.name, 'NotFoundError')
+    assert.equal(err.name, 'NotFoundError');
     assert.equal(err.message, 'Not Found');
     assert.equal(err.status, 404);
     assert.equal(err.statusCode, 404);
@@ -21,7 +21,7 @@ describe('HTTP Errors', function () {
 
   it('create(status, msg)', function () {
     var err = create(404, 'LOL');
-    assert.equal(err.name, 'NotFoundError')
+    assert.equal(err.name, 'NotFoundError');
     assert.equal(err.message, 'LOL');
     assert.equal(err.status, 404);
     assert.equal(err.statusCode, 404);
@@ -30,8 +30,8 @@ describe('HTTP Errors', function () {
   it('create(status, props)', function () {
     var err = create(404, {
       id: 1
-    })
-    assert.equal(err.name, 'NotFoundError')
+    });
+    assert.equal(err.name, 'NotFoundError');
     assert.equal(err.message, 'Not Found');
     assert.equal(err.status, 404);
     assert.equal(err.statusCode, 404);
@@ -42,8 +42,8 @@ describe('HTTP Errors', function () {
     var err = create(404, {
       id: 1,
       status: 500
-    })
-    assert.equal(err.name, 'NotFoundError')
+    });
+    assert.equal(err.name, 'NotFoundError');
     assert.equal(err.message, 'Not Found');
     assert.equal(err.status, 404);
     assert.equal(err.statusCode, 404);
@@ -54,8 +54,8 @@ describe('HTTP Errors', function () {
     var err = create(404, {
       id: 1,
       statusCode: 500
-    })
-    assert.equal(err.name, 'NotFoundError')
+    });
+    assert.equal(err.name, 'NotFoundError');
     assert.equal(err.message, 'Not Found');
     assert.equal(err.status, 404);
     assert.equal(err.statusCode, 404);
@@ -67,7 +67,7 @@ describe('HTTP Errors', function () {
       id: 1
     });
     assert.equal(err.id, 1);
-    assert.equal(err.name, 'InternalServerError')
+    assert.equal(err.name, 'InternalServerError');
     assert.equal(err.message, 'Internal Server Error');
     assert.equal(err.status, 500);
     assert.equal(err.statusCode, 500);
@@ -75,7 +75,7 @@ describe('HTTP Errors', function () {
 
   it('create(msg, status)', function () {
     var err = create('LOL', 404);
-    assert.equal(err.name, 'NotFoundError')
+    assert.equal(err.name, 'NotFoundError');
     assert.equal(err.message, 'LOL');
     assert.equal(err.status, 404);
     assert.equal(err.statusCode, 404);
@@ -83,7 +83,7 @@ describe('HTTP Errors', function () {
 
   it('create(msg)', function () {
     var err = create('LOL');
-    assert.equal(err.name, 'InternalServerError')
+    assert.equal(err.name, 'InternalServerError');
     assert.equal(err.message, 'LOL');
     assert.equal(err.status, 500);
     assert.equal(err.statusCode, 500);
@@ -93,7 +93,7 @@ describe('HTTP Errors', function () {
     var err = create('LOL', {
       id: 1
     });
-    assert.equal(err.name, 'InternalServerError')
+    assert.equal(err.name, 'InternalServerError');
     assert.equal(err.message, 'LOL');
     assert.equal(err.status, 500);
     assert.equal(err.statusCode, 500);
@@ -166,13 +166,13 @@ describe('HTTP Errors', function () {
   it('create(status, msg, { expose: false })', function () {
     var err = create(404, 'LOL', {
       expose: false
-    })
-    assert.equal(err.expose, false)
+    });
+    assert.equal(err.expose, false);
   })
 
   it('new create.NotFound()', function () {
     var err = new create.NotFound();
-    assert.equal(err.name, 'NotFoundError')
+    assert.equal(err.name, 'NotFoundError');
     assert.equal(err.message, 'Not Found');
     assert.equal(err.status, 404);
     assert.equal(err.statusCode, 404);
@@ -182,7 +182,7 @@ describe('HTTP Errors', function () {
 
   it('new create.InternalServerError()', function () {
     var err = new create.InternalServerError();
-    assert.equal(err.name, 'InternalServerError')
+    assert.equal(err.name, 'InternalServerError');
     assert.equal(err.message, 'Internal Server Error');
     assert.equal(err.status, 500);
     assert.equal(err.statusCode, 500);
@@ -192,7 +192,7 @@ describe('HTTP Errors', function () {
 
   it('new create["404"]()', function () {
     var err = new create['404']();
-    assert.equal(err.name, 'NotFoundError')
+    assert.equal(err.name, 'NotFoundError');
     assert.equal(err.message, 'Not Found');
     assert.equal(err.status, 404);
     assert.equal(err.statusCode, 404);
@@ -202,13 +202,13 @@ describe('HTTP Errors', function () {
 
   it('should preserve error [[Class]]', function () {
     var err = new create('LOL');
-    assert.equal(Object.prototype.toString.call(err), '[object Error]')
+    assert.equal(Object.prototype.toString.call(err), '[object Error]');
 
     var err = new create[404]();
-    assert.equal(Object.prototype.toString.call(err), '[object Error]')
+    assert.equal(Object.prototype.toString.call(err), '[object Error]');
 
     var err = new create[500]();
-    assert.equal(Object.prototype.toString.call(err), '[object Error]')
+    assert.equal(Object.prototype.toString.call(err), '[object Error]');
   })
 
   it('should support err instanceof Error', function () {
