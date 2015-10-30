@@ -14,6 +14,7 @@ describe('HTTP Errors', function () {
 
   it('create(status) for 300', function () {
     var err = create(300);
+    assert.equal(err.name, 'Error');
     assert.equal(err.message, 'Multiple Choices');
     assert.equal(err.status, 300);
     assert.equal(err.statusCode, 300);
@@ -66,11 +67,11 @@ describe('HTTP Errors', function () {
     var err = create({
       id: 1
     });
-    assert.equal(err.id, 1);
     assert.equal(err.name, 'InternalServerError');
     assert.equal(err.message, 'Internal Server Error');
     assert.equal(err.status, 500);
     assert.equal(err.statusCode, 500);
+    assert.equal(err.id, 1);
   })
 
   it('create(msg, status)', function () {
@@ -105,25 +106,28 @@ describe('HTTP Errors', function () {
     _err.status = 404;
     var err = create(_err);
     assert.equal(err, _err);
+    assert.equal(err.name, 'Error');
     assert.equal(err.message, 'LOL');
     assert.equal(err.status, 404);
+    assert.equal(err.statusCode, 404);
     assert.equal(err.expose, true);
 
     _err = new Error('LOL');
     err = create(_err);
     assert.equal(err, _err);
+    assert.equal(err.name, 'Error');
     assert.equal(err.message, 'LOL');
     assert.equal(err.status, 500);
     assert.equal(err.statusCode, 500);
     assert.equal(err.expose, false);
   })
 
-
   it('create(err) with invalid err.status', function () {
     var _err = new Error('Connection refused');
     _err.status = -1;
     var err = create(_err);
     assert.equal(err, _err);
+    assert.equal(err.name, 'Error');
     assert.equal(err.message, 'Connection refused');
     assert.equal(err.status, 500);
     assert.equal(err.statusCode, 500);
@@ -136,8 +140,10 @@ describe('HTTP Errors', function () {
     var err = create(_err, {
       id: 1
     });
+    assert.equal(err.name, 'Error');
     assert.equal(err.message, 'LOL');
     assert.equal(err.status, 404);
+    assert.equal(err.statusCode, 404);
     assert.equal(err.id, 1);
     assert.equal(err.expose, true);
   })
@@ -148,9 +154,11 @@ describe('HTTP Errors', function () {
       id: 1
     });
     assert.equal(err, _err);
+    assert.equal(err.name, 'Error');
     assert.equal(err.message, 'LOL');
     assert.equal(err.status, 404);
     assert.equal(err.statusCode, 404);
+    assert.equal(err.id, 1);
   })
 
   it('create(status, msg, props)', function () {
@@ -161,6 +169,7 @@ describe('HTTP Errors', function () {
     assert.equal(err.message, 'LOL');
     assert.equal(err.status, 404);
     assert.equal(err.statusCode, 404);
+    assert.equal(err.id, 1);
   })
 
   it('create(status, msg, { expose: false })', function () {
