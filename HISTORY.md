@@ -1,6 +1,7 @@
 unreleased
 ==========
 
+  * Add `HttpError` export, for `err instanceof createError.HttpError`
   * deps: inherits@2.0.1
   * deps: statuses@'>= 1.2.1 < 2'
     - Fix message for status 451

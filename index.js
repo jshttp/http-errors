@@ -64,6 +64,12 @@ exports = module.exports = function httpError() {
   return err;
 };
 
+var HttpError = exports.HttpError = function HttpError() {
+  throw new TypeError('cannot construct abstract class');
+};
+
+inherits(HttpError, Error);
+
 // create generic error objects
 var codes = statuses.codes.filter(function (num) {
   return num >= 400;
@@ -86,7 +92,7 @@ codes.forEach(function (code) {
       })
       return self
     }
-    inherits(ServerError, Error);
+    inherits(ServerError, HttpError);
     ServerError.prototype.status =
     ServerError.prototype.statusCode = code;
     ServerError.prototype.expose = false;
@@ -107,7 +113,7 @@ codes.forEach(function (code) {
     })
     return self
   }
-  inherits(ClientError, Error);
+  inherits(ClientError, HttpError);
   ClientError.prototype.status =
   ClientError.prototype.statusCode = code;
   ClientError.prototype.expose = true;

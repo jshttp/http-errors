@@ -179,6 +179,12 @@ describe('HTTP Errors', function () {
     assert.equal(err.expose, false);
   })
 
+  it('new create.HttpError()', function () {
+    assert.throws(function () {
+      new create.HttpError();
+    }, /cannot construct abstract class/);
+  })
+
   it('new create.NotFound()', function () {
     var err = new create.NotFound();
     assert.equal(err.name, 'NotFoundError');
@@ -233,6 +239,12 @@ describe('HTTP Errors', function () {
     assert((new create['500']()) instanceof create.InternalServerError);
     assert((new create.NotFound()) instanceof create.NotFound);
     assert((new create.InternalServerError()) instanceof create.InternalServerError);
+  })
+
+  it('should support err instanceof HttpError', function () {
+    assert(create(404) instanceof create.HttpError);
+    assert((new create['404']()) instanceof create.HttpError);
+    assert((new create['500']()) instanceof create.HttpError);
   })
 
   it('should support util.isError()', function () {
