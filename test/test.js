@@ -217,6 +217,18 @@ describe('HTTP Errors', function () {
     assert((new create['500']()) instanceof Error);
   })
 
+  it('should support err instanceof for individual statuses', function () {
+    assert(create(404) instanceof create['404']);
+    assert((new create['404']()) instanceof create['404']);
+    assert((new create['500']()) instanceof create['500']);
+  })
+
+  it('should support err instanceof HttpError', function () {
+    assert(create(404) instanceof create);
+    assert((new create['404']()) instanceof create);
+    assert((new create['500']()) instanceof create);
+  })
+
   it('should support util.isError()', function () {
     assert(util.isError(create(404)));
     assert(util.isError(new create['404']()));
