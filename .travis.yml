@@ -1,15 +1,17 @@
 language: node_js
 node_js:
-  - "0.6"
   - "0.8"
   - "0.10"
   - "0.12"
   - "1.0"
   - "1.8"
   - "2.0"
+  - "3.0"
+  - "4.0"
 sudo: false
+before_install:
+- ./test/scripts/ensure-compatible-npm.sh
 script:
-  - "test $TRAVIS_NODE_VERSION != '0.6' || npm test"
-  - "test $TRAVIS_NODE_VERSION  = '0.6' || npm run-script test-travis"
+  - "npm run-script test-travis"
 after_script:
   - "test $TRAVIS_NODE_VERSION = '0.10' && npm install coveralls@2 && cat ./coverage/lcov.info | coveralls"
