@@ -6,10 +6,18 @@ node_js:
   - "0.12"
   - "1.0"
   - "1.8"
-  - "2.0"
+  - "2.5"
+  - "3.3"
+  - "4.2"
+  - "5.0"
 sudo: false
+before_install:
+  # Setup Node.js version-specific dependencies
+  - "test $TRAVIS_NODE_VERSION != '0.6' || npm rm --save-dev istanbul"
+  - "test $TRAVIS_NODE_VERSION != '0.8' || npm rm --save-dev istanbul"
 script:
-  - "test $TRAVIS_NODE_VERSION != '0.6' || npm test"
-  - "test $TRAVIS_NODE_VERSION  = '0.6' || npm run-script test-travis"
+  # Run test script, depending on istanbul install
+  - "test ! -z $(npm -ps ls istanbul) || npm test"
+  - "test   -z $(npm -ps ls istanbul) || npm run-script test-travis"
 after_script:
-  - "test $TRAVIS_NODE_VERSION = '0.10' && npm install coveralls@2 && cat ./coverage/lcov.info | coveralls"
+  - "test -e ./coverage/lcov.info && npm install coveralls@2 && cat ./coverage/lcov.info | coveralls"
