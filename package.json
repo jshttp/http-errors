@@ -14,7 +14,7 @@
     "statuses": "1"
   },
   "devDependencies": {
-    "istanbul": "0.4.1",
+    "istanbul": "0.4.2",
     "mocha": "1.21.5"
   },
   "engines": {
