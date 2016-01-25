@@ -11,7 +11,7 @@
   "repository": "jshttp/http-errors",
   "dependencies": {
     "inherits": "2.0.1",
-    "statuses": "1"
+    "statuses": ">= 1.2.1 < 2"
   },
   "devDependencies": {
     "istanbul": "0.4.2",

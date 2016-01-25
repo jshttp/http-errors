@@ -2,6 +2,9 @@ unreleased
 ==========
 
   * deps: inherits@2.0.1
+  * deps: statuses@'>= 1.2.1 < 2'
+    - Fix message for status 451
+    - Remove incorrect nginx status code
 
 2015-02-02 / 1.3.1
 ==================
