@@ -226,6 +226,15 @@ describe('HTTP Errors', function () {
     assert((new create['500']()) instanceof Error);
   })
 
+  it('should support err instanceof exposed constructor', function () {
+    assert(create(404) instanceof create.NotFound);
+    assert(create(500) instanceof create.InternalServerError);
+    assert((new create['404']()) instanceof create.NotFound);
+    assert((new create['500']()) instanceof create.InternalServerError);
+    assert((new create.NotFound()) instanceof create.NotFound);
+    assert((new create.InternalServerError()) instanceof create.InternalServerError);
+  })
+
   it('should support util.isError()', function () {
     assert(util.isError(create(404)));
     assert(util.isError(new create['404']()));
