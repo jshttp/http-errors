@@ -10,7 +10,7 @@
   "license": "MIT",
   "repository": "jshttp/http-errors",
   "dependencies": {
-    "inherits": "~2.0.1",
+    "inherits": "2.0.1",
     "statuses": "1"
   },
   "devDependencies": {
