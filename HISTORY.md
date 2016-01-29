@@ -1,5 +1,5 @@
-unreleased
-==========
+2016-01-28 / 1.4.0
+==================
 
   * Add `HttpError` export, for `err instanceof createError.HttpError`
   * deps: inherits@2.0.1
