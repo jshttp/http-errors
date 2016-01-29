@@ -39,17 +39,17 @@ exports = module.exports = function httpError() {
   }
 
   // constructor
-  var HttpError = exports[status]
+  var StatusError = exports[status]
 
   if (!err) {
     // create error
-    err = HttpError
-      ? new HttpError(msg)
+    err = StatusError
+      ? new StatusError(msg)
       : new Error(msg || statuses[status])
     Error.captureStackTrace(err, httpError)
   }
 
-  if (!HttpError || !(err instanceof HttpError)) {
+  if (!StatusError || !(err instanceof StatusError)) {
     // add properties to generic error
     err.expose = status < 500
     err.status = err.statusCode = status
@@ -63,6 +63,10 @@ exports = module.exports = function httpError() {
 
   return err;
 };
+var HttpError = exports;
+
+inherits(HttpError, Error);
+
 
 // create generic error objects
 var codes = statuses.codes.filter(function (num) {
@@ -86,7 +90,7 @@ codes.forEach(function (code) {
       })
       return self
     }
-    inherits(ServerError, Error);
+    inherits(ServerError, HttpError);
     ServerError.prototype.status =
     ServerError.prototype.statusCode = code;
     ServerError.prototype.expose = false;
@@ -107,7 +111,7 @@ codes.forEach(function (code) {
     })
     return self
   }
-  inherits(ClientError, Error);
+  inherits(ClientError, HttpError);
   ClientError.prototype.status =
   ClientError.prototype.statusCode = code;
   ClientError.prototype.expose = true;
