@@ -1,3 +1,8 @@
+/*!
+ * http-errors
+ * Copyright(c) 2014 Jonathan Ong
+ * MIT Licensed
+ */
 
 var statuses = require('statuses');
 var inherits = require('inherits');
