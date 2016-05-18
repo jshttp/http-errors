@@ -11,8 +11,8 @@
  */
 
 var setPrototypeOf = require('setprototypeof')
-var statuses = require('statuses');
-var inherits = require('inherits');
+var statuses = require('statuses')
+var inherits = require('inherits')
 
 /**
  * Module exports.
@@ -34,27 +34,27 @@ populateConstructorExports(module.exports, statuses.codes, module.exports.HttpEr
 
 function createError () {
   // so much arity going on ~_~
-  var err;
-  var msg;
-  var status = 500;
-  var props = {};
+  var err
+  var msg
+  var status = 500
+  var props = {}
   for (var i = 0; i < arguments.length; i++) {
-    var arg = arguments[i];
+    var arg = arguments[i]
     if (arg instanceof Error) {
-      err = arg;
-      status = err.status || err.statusCode || status;
-      continue;
+      err = arg
+      status = err.status || err.statusCode || status
+      continue
     }
     switch (typeof arg) {
       case 'string':
-        msg = arg;
-        break;
+        msg = arg
+        break
       case 'number':
-        status = arg;
-        break;
+        status = arg
+        break
       case 'object':
-        props = arg;
-        break;
+        props = arg
+        break
     }
   }
 
@@ -85,7 +85,7 @@ function createError () {
     }
   }
 
-  return err;
+  return err
 }
 
 /**
