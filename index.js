@@ -10,6 +10,7 @@
  * @private
  */
 
+var setPrototypeOf = require('setprototypeof')
 var statuses = require('statuses');
 var inherits = require('inherits');
 
@@ -118,7 +119,7 @@ function createClientErrorConstructor (HttpError, name, code) {
     Error.captureStackTrace(err, ClientError)
 
     // adjust the [[Prototype]]
-    err.__proto__ = ClientError.prototype
+    setPrototypeOf(err, ClientError.prototype)
 
     // redefine the error name
     Object.defineProperty(err, 'name', {
@@ -156,7 +157,7 @@ function createServerErrorConstructor (HttpError, name, code) {
     Error.captureStackTrace(err, ServerError)
 
     // adjust the [[Prototype]]
-    err.__proto__ = ServerError.prototype
+    setPrototypeOf(err, ServerError.prototype)
 
     // redefine the error name
     Object.defineProperty(err, 'name', {

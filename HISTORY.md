@@ -2,6 +2,7 @@ unreleased
 ==========
 
   * Support new code `421 Misdirected Request`
+  * Use `setprototypeof` module to replace `__proto__` setting
   * deps: statuses@'>= 1.3.0 < 2'
     - Add `421 Misdirected Request`
     - perf: enable strict mode
