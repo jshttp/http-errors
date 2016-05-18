@@ -73,6 +73,7 @@ var err = new createError.NotFound();
 |416        |RangeNotSatisfiable          |
 |417        |ExpectationFailed            |
 |418        |ImATeapot                    |
+|421        |MisdirectedRequest           |
 |422        |UnprocessableEntity          |
 |423        |Locked                       |
 |424        |FailedDependency             |
