@@ -6,6 +6,7 @@ unreleased
   * deps: statuses@'>= 1.3.0 < 2'
     - Add `421 Misdirected Request`
     - perf: enable strict mode
+  * perf: enable strict mode
 
 2016-01-28 / 1.4.0
 ==================
