@@ -1,5 +1,5 @@
-unreleased
-==========
+2016-05-18 / 1.5.0
+==================
 
   * Support new code `421 Misdirected Request`
   * Use `setprototypeof` module to replace `__proto__` setting
