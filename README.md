@@ -100,13 +100,13 @@ var err = new createError.NotFound();
 
 [MIT](LICENSE)
 
-[npm-image]: https://img.shields.io/npm/v/http-errors.svg?style=flat
+[npm-image]: https://img.shields.io/npm/v/http-errors.svg
 [npm-url]: https://npmjs.org/package/http-errors
-[node-version-image]: https://img.shields.io/node/v/http-errors.svg?style=flat
+[node-version-image]: https://img.shields.io/node/v/http-errors.svg
 [node-version-url]: https://nodejs.org/en/download/
-[travis-image]: https://img.shields.io/travis/jshttp/http-errors.svg?style=flat
+[travis-image]: https://img.shields.io/travis/jshttp/http-errors.svg
 [travis-url]: https://travis-ci.org/jshttp/http-errors
-[coveralls-image]: https://img.shields.io/coveralls/jshttp/http-errors.svg?style=flat
+[coveralls-image]: https://img.shields.io/coveralls/jshttp/http-errors.svg
 [coveralls-url]: https://coveralls.io/r/jshttp/http-errors
-[downloads-image]: https://img.shields.io/npm/dm/http-errors.svg?style=flat
+[downloads-image]: https://img.shields.io/npm/dm/http-errors.svg
 [downloads-url]: https://npmjs.org/package/http-errors
