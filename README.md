@@ -8,6 +8,16 @@
 
 Create HTTP errors for Express, Koa, Connect, etc. with ease.
 
+## Install
+
+This is a [Node.js](https://nodejs.org/en/) module available through the
+[npm registry](https://www.npmjs.com/). Installation is done using the
+[`npm install` command](https://docs.npmjs.com/getting-started/installing-npm-packages-locally):
+
+```bash
+$ npm install http-errors
+```
+
 ## Example
 
 ```js
