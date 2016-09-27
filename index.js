@@ -78,8 +78,8 @@ function createError () {
   if (!HttpError || !(err instanceof HttpError)) {
     // add properties to generic error
     err.expose = status < 500
-    err.status = err.statusCode = status
   }
+  err.status = err.statusCode = status
 
   for (var key in props) {
     if (key !== 'status' && key !== 'statusCode') {
