@@ -21,11 +21,13 @@ $ npm install http-errors
 ## Example
 
 ```js
-var createError = require('http-errors');
+var createError = require('http-errors')
+var express = require('express')
+var app = express()
 
 app.use(function (req, res, next) {
-  if (!req.user) return next(createError(401, 'Please login to view this page.'));
-  next();
+  if (!req.user) return next(createError(401, 'Please login to view this page.'))
+  next()
 })
 ```
 
@@ -43,8 +45,10 @@ All errors inherit from JavaScript `Error` and the exported `createError.HttpErr
 
 ### createError([status], [message], [properties])
 
+<!-- eslint-disable no-undef, no-unused-vars -->
+
 ```js
-var err = createError(404, 'This video does not exist!');
+var err = createError(404, 'This video does not exist!')
 ```
 
 - `status: 500` - the status code as a number
@@ -53,8 +57,10 @@ var err = createError(404, 'This video does not exist!');
 
 ### new createError\[code || name\](\[msg]\))
 
+<!-- eslint-disable no-undef, no-unused-vars -->
+
 ```js
-var err = new createError.NotFound();
+var err = new createError.NotFound()
 ```
 
 - `code` - the status code as a number
