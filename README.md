@@ -39,7 +39,11 @@ All errors inherit from JavaScript `Error` and the exported `createError.HttpErr
 
 ### Error Properties
 
-- `expose` - can be used to signal if `message` should be sent to the client, defaulting to `false` when `status` >= 500
+- `expose` - can be used to signal if `message` should be sent to the client,
+  defaulting to `false` when `status` >= 500
+- `headers` - can be an object of header names to values to be sent to the
+  client, defaulting to `undefined`. When defined, the key names should all
+  be lower-cased
 - `message`
 - `status` and `statusCode` - the status code of the error, defaulting to `500`
 
