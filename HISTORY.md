@@ -1,5 +1,5 @@
-unreleased
-==========
+2016-11-16 / 1.5.1
+==================
 
   * deps: inherits@2.0.3
     - Fix issue loading in browser
