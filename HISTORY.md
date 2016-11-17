@@ -3,6 +3,7 @@ unreleased
 
   * deps: inherits@2.0.3
     - Fix issue loading in browser
+  * deps: setprototypeof@1.0.2
   * deps: statuses@'>= 1.3.1 < 2'
 
 2016-05-18 / 1.5.0
