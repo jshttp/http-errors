@@ -55,7 +55,7 @@ function createError () {
       case 'number':
         status = arg
         if (i !== 0) {
-          deprecate('non-fist-argument status code; replace with createError(' + arg + ', ...)')
+          deprecate('non-first-argument status code; replace with createError(' + arg + ', ...)')
         }
         break
       case 'object':
