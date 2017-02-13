@@ -2,6 +2,7 @@ unreleased
 ==========
 
   * Add deprecation message to `"I'mateapot"` export
+  * Deprecate passing status code as anything except first argument in factory
 
 2016-11-16 / 1.5.1
 ==================

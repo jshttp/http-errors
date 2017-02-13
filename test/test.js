@@ -1,3 +1,6 @@
+
+process.env.NO_DEPRECATION = 'http-errors'
+
 var assert = require('assert')
 var util = require('util')
 
