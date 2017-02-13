@@ -1,3 +1,8 @@
+unreleased
+==========
+
+  * Add deprecation message to `"I'mateapot"` export
+
 2016-11-16 / 1.5.1
 ==================
 

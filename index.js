@@ -12,6 +12,7 @@
  * @private
  */
 
+var deprecate = require('depd')('http-errors')
 var setPrototypeOf = require('setprototypeof')
 var statuses = require('statuses')
 var inherits = require('inherits')
@@ -208,7 +209,8 @@ function populateConstructorExports (exports, codes, HttpError) {
   })
 
   // backwards-compatibility
-  exports["I'mateapot"] = exports.ImATeapot
+  exports["I'mateapot"] = deprecate.function(exports.ImATeapot,
+    '"I\'mateapot"; use "ImATeapot" instead')
 }
 
 /**
