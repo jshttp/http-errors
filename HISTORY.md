@@ -3,6 +3,7 @@ unreleased
 
   * Add deprecation message to `"I'mateapot"` export
   * Deprecate passing status code as anything except first argument in factory
+  * Make `message` property enumerable for `HttpError`s
 
 2016-11-16 / 1.5.1
 ==================

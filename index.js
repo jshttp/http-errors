@@ -119,13 +119,22 @@ function createClientErrorConstructor (HttpError, name, code) {
 
   function ClientError (message) {
     // create the error object
-    var err = new Error(message != null ? message : statuses[code])
+    var msg = message != null ? message : statuses[code]
+    var err = new Error(msg)
 
     // capture a stack trace to the construction point
     Error.captureStackTrace(err, ClientError)
 
     // adjust the [[Prototype]]
     setPrototypeOf(err, ClientError.prototype)
+
+    // redefine the error message
+    Object.defineProperty(err, 'message', {
+      enumerable: true,
+      configurable: true,
+      value: msg,
+      writable: true
+    })
 
     // redefine the error name
     Object.defineProperty(err, 'name', {
@@ -157,13 +166,22 @@ function createServerErrorConstructor (HttpError, name, code) {
 
   function ServerError (message) {
     // create the error object
-    var err = new Error(message != null ? message : statuses[code])
+    var msg = message != null ? message : statuses[code]
+    var err = new Error(msg)
 
     // capture a stack trace to the construction point
     Error.captureStackTrace(err, ServerError)
 
     // adjust the [[Prototype]]
     setPrototypeOf(err, ServerError.prototype)
+
+    // redefine the error message
+    Object.defineProperty(err, 'message', {
+      enumerable: true,
+      configurable: true,
+      value: msg,
+      writable: true
+    })
 
     // redefine the error name
     Object.defineProperty(err, 'name', {
