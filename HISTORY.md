@@ -4,6 +4,7 @@ unreleased
   * Accept custom 4xx and 5xx status codes in factory
   * Add deprecation message to `"I'mateapot"` export
   * Deprecate passing status code as anything except first argument in factory
+  * Deprecate using non-error status codes
   * Make `message` property enumerable for `HttpError`s
 
 2016-11-16 / 1.5.1
