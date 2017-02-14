@@ -29,6 +29,15 @@ module.exports.HttpError = createHttpErrorConstructor()
 populateConstructorExports(module.exports, statuses.codes, module.exports.HttpError)
 
 /**
+ * Get the code class of a status code.
+ * @private
+ */
+
+function codeClass (status) {
+  return Number(String(status).charAt(0) + '00')
+}
+
+/**
  * Create a new HTTP Error.
  *
  * @returns {Error}
@@ -64,12 +73,13 @@ function createError () {
     }
   }
 
-  if (typeof status !== 'number' || !statuses[status]) {
+  if (typeof status !== 'number' ||
+    (!statuses[status] && (status < 400 || status >= 600))) {
     status = 500
   }
 
   // constructor
-  var HttpError = createError[status]
+  var HttpError = createError[status] || createError[codeClass(status)]
 
   if (!err) {
     // create error
@@ -79,7 +89,7 @@ function createError () {
     Error.captureStackTrace(err, createError)
   }
 
-  if (!HttpError || !(err instanceof HttpError)) {
+  if (!HttpError || !(err instanceof HttpError) || err.status !== status) {
     // add properties to generic error
     err.expose = status < 500
     err.status = err.statusCode = status
@@ -213,11 +223,11 @@ function populateConstructorExports (exports, codes, HttpError) {
     var CodeError
     var name = toIdentifier(statuses[code])
 
-    switch (String(code).charAt(0)) {
-      case '4':
+    switch (codeClass(code)) {
+      case 400:
         CodeError = createClientErrorConstructor(HttpError, name, code)
         break
-      case '5':
+      case 500:
         CodeError = createServerErrorConstructor(HttpError, name, code)
         break
     }

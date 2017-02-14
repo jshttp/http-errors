@@ -23,6 +23,22 @@ describe('HTTP Errors', function () {
     assert.equal(err.statusCode, 300)
   })
 
+  it('create(status) for 471', function () {
+    var err = create(471)
+    assert.equal(err.name, 'BadRequestError')
+    assert.equal(err.message, 'Bad Request')
+    assert.equal(err.status, 471)
+    assert.equal(err.statusCode, 471)
+  })
+
+  it('create(status) for 520', function () {
+    var err = create(520)
+    assert.equal(err.name, 'InternalServerError')
+    assert.equal(err.message, 'Internal Server Error')
+    assert.equal(err.status, 520)
+    assert.equal(err.statusCode, 520)
+  })
+
   it('create(status, msg)', function () {
     var err = create(404, 'LOL')
     assert.equal(err.name, 'NotFoundError')
