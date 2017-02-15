@@ -1,5 +1,5 @@
-unreleased
-==========
+2017-02-14 / 1.6.0
+==================
 
   * Accept custom 4xx and 5xx status codes in factory
   * Add deprecation message to `"I'mateapot"` export
