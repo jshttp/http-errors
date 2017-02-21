@@ -1,5 +1,5 @@
-unreleased
-==========
+2017-02-20 / 1.6.1
+==================
 
   * deps: setprototypeof@1.0.3
     - Fix shim for old browsers
