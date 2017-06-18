@@ -262,8 +262,10 @@ describe('HTTP Errors', function () {
   })
 
   it('should support util.isError()', function () {
+    /* eslint-disable node/no-deprecated-api */
     assert(util.isError(create(404)))
     assert(util.isError(new create['404']()))
     assert(util.isError(new create['500']()))
+    /* eslint-enable node/no-deprecated-api */
   })
 })
