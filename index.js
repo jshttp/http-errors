@@ -48,13 +48,13 @@ function createError () {
   // so much arity going on ~_~
   var err
   var msg
-  var status = 500
+  var status
   var props = {}
   for (var i = 0; i < arguments.length; i++) {
     var arg = arguments[i]
     if (arg instanceof Error) {
       err = arg
-      status = err.status || err.statusCode || status
+      status = status || err.status || err.statusCode
       continue
     }
     switch (typeof arg) {
