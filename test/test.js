@@ -93,6 +93,30 @@ describe('HTTP Errors', function () {
     assert.equal(err.id, 1)
   })
 
+  it('create(props) with status prop', function () {
+    var err = create({
+      id: 1,
+      status: 418
+    })
+    assert.equal(err.name, 'ImATeapotError')
+    assert.equal(err.message, "I'm a teapot")
+    assert.equal(err.status, 418)
+    assert.equal(err.statusCode, 418)
+    assert.equal(err.id, 1)
+  })
+
+  it('create(props) with statusCode prop', function () {
+    var err = create({
+      id: 1,
+      statusCode: 418
+    })
+    assert.equal(err.name, 'ImATeapotError')
+    assert.equal(err.message, "I'm a teapot")
+    assert.equal(err.status, 418)
+    assert.equal(err.statusCode, 418)
+    assert.equal(err.id, 1)
+  })
+
   it('create(msg, status)', function () {
     var err = create('LOL', 404)
     assert.equal(err.name, 'NotFoundError')
@@ -153,6 +177,18 @@ describe('HTTP Errors', function () {
     assert.equal(err.expose, false)
   })
 
+  it('create(status, err)', function () {
+    var _err = new Error('LOL')
+    _err.status = 404
+    var err = create(418, _err)
+    assert.equal(err, _err)
+    assert.equal(err.name, 'Error')
+    assert.equal(err.message, 'LOL')
+    assert.equal(err.status, 404)
+    assert.equal(err.statusCode, 404)
+    assert.equal(err.expose, true)
+  })
+
   it('create(err, props)', function () {
     var _err = new Error('LOL')
     _err.status = 404
@@ -167,10 +203,27 @@ describe('HTTP Errors', function () {
     assert.equal(err.expose, true)
   })
 
+  it('create(err, props) with status prop', function () {
+    var _err = new Error('LOL')
+    _err.status = 404
+    var err = create(_err, {
+      id: 1,
+      status: 418
+    })
+    assert.equal(err.name, 'Error')
+    assert.equal(err.message, 'LOL')
+    assert.equal(err.status, 404)
+    assert.equal(err.statusCode, 404)
+    assert.equal(err.id, 1)
+    assert.equal(err.expose, true)
+  })
+
   it('create(status, err, props)', function () {
     var _err = new Error('LOL')
-    var err = create(404, _err, {
-      id: 1
+    _err.status = 404
+    var err = create(418, _err, {
+      id: 1,
+      status: 410
     })
     assert.equal(err, _err)
     assert.equal(err.name, 'Error')
