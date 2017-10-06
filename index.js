@@ -15,7 +15,7 @@
 var deprecate = require('depd')('http-errors')
 var setPrototypeOf = require('setprototypeof')
 var statuses = require('statuses')
-var inherits = require('inherits')
+var inherits = require('util').inherits
 
 /**
  * Module exports.
