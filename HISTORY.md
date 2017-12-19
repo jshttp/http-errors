@@ -2,6 +2,7 @@ unreleased
 ==========
 
   * Set constructor name when possible
+  * Use `toidentifier` module to make class names
   * deps: statuses@'>= 1.5.0 < 2'
 
 2018-03-29 / 1.6.3
