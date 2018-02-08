@@ -1,6 +1,8 @@
 unreleased
 ==========
 
+  * deps: depd@~1.1.2
+    - perf: remove argument reassignment
   * deps: setprototypeof@1.1.0
   * deps: statuses@'>= 1.3.1 < 2'
 
