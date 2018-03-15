@@ -2,9 +2,9 @@ unreleased
 ==========
 
   * Set constructor name when possible
+  * deps: depd@1.1.2
   * deps: setprototypeof@1.1.0
   * deps: statuses@'>= 1.3.1 < 2'
-  * deps: depd@1.1.2
 
 2017-08-04 / 1.6.2
 ==================
