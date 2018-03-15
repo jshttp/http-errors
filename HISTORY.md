@@ -1,6 +1,7 @@
 unreleased
 ==========
 
+  * deps: depd@1.1.2
   * Set constructor name when possible
   * deps: setprototypeof@1.1.0
   * deps: statuses@'>= 1.3.1 < 2'
