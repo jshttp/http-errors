@@ -1,6 +1,9 @@
 unreleased
 ==========
 
+  * Set constructor name when possible
+  * deps: depd@1.1.2
+    - Replace interal `eval` usage with `Function` constructor
   * deps: setprototypeof@1.1.0
   * deps: statuses@'>= 1.3.1 < 2'
 
