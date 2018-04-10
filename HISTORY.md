@@ -4,7 +4,7 @@
   * deps: depd@~1.1.2
     - perf: remove argument reassignment
   * deps: setprototypeof@1.1.0
-  * deps: statuses@'>= 1.3.1 < 2'
+  * deps: statuses@'>= 1.4.0 < 2'
 
 2017-08-04 / 1.6.2
 ==================
