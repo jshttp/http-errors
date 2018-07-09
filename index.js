@@ -162,6 +162,7 @@ function createClientErrorConstructor (HttpError, name, code) {
   }
 
   inherits(ClientError, HttpError)
+  nameFunc(ClientError, className)
 
   ClientError.prototype.status = code
   ClientError.prototype.statusCode = code
@@ -209,12 +210,27 @@ function createServerErrorConstructor (HttpError, name, code) {
   }
 
   inherits(ServerError, HttpError)
+  nameFunc(ServerError, className)
 
   ServerError.prototype.status = code
   ServerError.prototype.statusCode = code
   ServerError.prototype.expose = false
 
   return ServerError
+}
+
+/**
+ * Set the name of a function, if possible.
+ * @private
+ */
+
+function nameFunc (func, name) {
+  var desc = Object.getOwnPropertyDescriptor(func, 'name')
+
+  if (desc.configurable) {
+    desc.value = name
+    Object.defineProperty(func, 'name', desc)
+  }
 }
 
 /**
