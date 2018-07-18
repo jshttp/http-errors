@@ -139,6 +139,14 @@ describe('HTTP Errors', function () {
     assert.equal(err.status, 500)
     assert.equal(err.statusCode, 500)
     assert.equal(err.expose, false)
+
+    err = create(null)
+    assert.notEqual(err, null)
+    assert.equal(err.name, 'InternalServerError')
+    assert.equal(err.message, 'Internal Server Error')
+    assert.equal(err.status, 500)
+    assert.equal(err.statusCode, 500)
+    assert.equal(err.expose, false)
   })
 
   it('create(err) with invalid err.status', function () {
