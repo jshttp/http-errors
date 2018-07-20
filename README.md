@@ -63,6 +63,31 @@ var err = createError(404, 'This video does not exist!')
 - `message` - the message of the error, defaulting to node's text for that status code.
 - `properties` - custom properties to attach to the object
 
+### createError([status], [error], [properties])
+
+Extend the given `error` object with `createError.HttpError`
+properties. This will not alter the inheritance of the given
+`error` object, and the modified `error` object is the
+return value.
+
+<!-- eslint-disable no-redeclare, no-undef, no-unused-vars -->
+
+```js
+fs.readFile('foo.txt', function (err, buf) {
+  if (err) {
+    if (err.code === 'ENOENT') {
+      var httpError = createError(404, err, { expose: false })
+    } else {
+      var httpError = createError(500, err)
+    }
+  }
+})
+```
+
+- `status` - the status code as a number
+- `error` - the error object to extend
+- `properties` - custom properties to attach to the object
+
 ### new createError\[code || name\](\[msg]\))
 
 Create a new error object with the given message `msg`.
