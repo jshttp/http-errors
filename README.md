@@ -35,8 +35,6 @@ app.use(function (req, res, next) {
 
 This is the current API, currently extracted from Koa and subject to change.
 
-All errors inherit from JavaScript `Error` and the exported `createError.HttpError`.
-
 ### Error Properties
 
 - `expose` - can be used to signal if `message` should be sent to the client,
@@ -52,6 +50,9 @@ All errors inherit from JavaScript `Error` and the exported `createError.HttpErr
 
 ### createError([status], [message], [properties])
 
+Create a new error object with the given message `msg`.
+The error object inherits from `createError.HttpError`.
+
 <!-- eslint-disable no-undef, no-unused-vars -->
 
 ```js
@@ -63,6 +64,9 @@ var err = createError(404, 'This video does not exist!')
 - `properties` - custom properties to attach to the object
 
 ### new createError\[code || name\](\[msg]\))
+
+Create a new error object with the given message `msg`.
+The error object inherits from `createError.HttpError`.
 
 <!-- eslint-disable no-undef, no-unused-vars -->
 
