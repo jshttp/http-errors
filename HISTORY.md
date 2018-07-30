@@ -1,5 +1,5 @@
-unreleased
-==========
+2018-07-30 / 1.7.0
+==================
 
   * Set constructor name when possible
   * Use `toidentifier` module to make class names
