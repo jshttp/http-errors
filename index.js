@@ -228,7 +228,7 @@ function createServerErrorConstructor (HttpError, name, code) {
 function nameFunc (func, name) {
   var desc = Object.getOwnPropertyDescriptor(func, 'name')
 
-  if (desc.configurable) {
+  if (desc && desc.configurable) {
     desc.value = name
     Object.defineProperty(func, 'name', desc)
   }

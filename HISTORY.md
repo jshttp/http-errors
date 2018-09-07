@@ -1,3 +1,8 @@
+unreleased
+==========
+
+  * Fix error creating objects in some environments
+
 2018-07-30 / 1.7.0
 ==================
 
