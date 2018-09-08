@@ -1,5 +1,5 @@
-unreleased
-==========
+2018-09-08 / 1.7.1
+==================
 
   * Fix error creating objects in some environments
 
