@@ -1,8 +1,8 @@
 # http-errors
 
-[![NPM Version][npm-image]][npm-url]
-[![NPM Downloads][downloads-image]][downloads-url]
-[![Node.js Version][node-version-image]][node-version-url]
+[![NPM Version][npm-version-image]][npm-url]
+[![NPM Downloads][npm-downloads-image]][node-url]
+[![Node.js Version][node-image]][node-url]
 [![Build Status][travis-image]][travis-url]
 [![Test Coverage][coveralls-image]][coveralls-url]
 
@@ -152,13 +152,12 @@ var err = new createError.NotFound()
 
 [MIT](LICENSE)
 
-[npm-image]: https://img.shields.io/npm/v/http-errors.svg
+[coveralls-image]: https://badgen.net/coveralls/c/github/jshttp/http-errors/master
+[coveralls-url]: https://coveralls.io/r/jshttp/http-errors?branch=master
+[node-image]: https://badgen.net/npm/node/http-errors
+[node-url]: https://nodejs.org/en/download
+[npm-downloads-image]: https://badgen.net/npm/dm/http-errors
 [npm-url]: https://npmjs.org/package/http-errors
-[node-version-image]: https://img.shields.io/node/v/http-errors.svg
-[node-version-url]: https://nodejs.org/en/download/
-[travis-image]: https://img.shields.io/travis/jshttp/http-errors.svg
+[npm-version-image]: https://badgen.net/npm/v/http-errors
+[travis-image]: https://badgen.net/travis/jshttp/http-errors/master
 [travis-url]: https://travis-ci.org/jshttp/http-errors
-[coveralls-image]: https://img.shields.io/coveralls/jshttp/http-errors.svg
-[coveralls-url]: https://coveralls.io/r/jshttp/http-errors
-[downloads-image]: https://img.shields.io/npm/dm/http-errors.svg
-[downloads-url]: https://npmjs.org/package/http-errors
