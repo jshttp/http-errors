@@ -54,9 +54,12 @@ before_install:
     elif [[ "$(v "$TRAVIS_NODE_VERSION")" -lt "$(v '0.10')" ]]; then
       # - use 2.x for Node.js < 0.10
       npm install --save-dev mocha@2.5.3
-    elif [[ "$(v "$TRAVIS_NODE_VERSION")" -lt "$(v '6.0')" ]]; then
-      # - use 3.x for Node.js < 6
+    elif [[ "$(v "$TRAVIS_NODE_VERSION")" -lt "$(v '4.0')" ]]; then
+      # - use 3.x for Node.js < 4
       npm install --save-dev mocha@3.5.3
+    elif [[ "$(v "$TRAVIS_NODE_VERSION")" -lt "$(v '6.0')" ]]; then
+      # - use 5.x for Node.js < 6
+      npm install --save-dev mocha@5.2.0
     fi
   # Update Node.js modules
   - |
