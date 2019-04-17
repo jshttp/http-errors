@@ -49,7 +49,7 @@ function createError () {
   // so much arity going on ~_~
   var err
   var msg
-  var status = 500
+  var status
   var props = {}
   for (var i = 0; i < arguments.length; i++) {
     var arg = arguments[i]
@@ -70,6 +70,7 @@ function createError () {
         break
       case 'object':
         props = arg
+        status = status || props.status || props.statusCode
         break
     }
   }
