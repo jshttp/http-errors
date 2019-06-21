@@ -16,7 +16,11 @@ node_js:
   - "10.16"
   - "11.15"
 sudo: false
-dist: precise
+dist: trusty
+env:
+  global:
+    # Suppress Node.js 0.6 compile warnings
+    - "CXXCOM='$CXX -o $TARGET -c $CXXFLAGS $CCFLAGS -Wno-unused-local-typedefs -Wno-maybe-uninitialized -Wno-narrowing -Wno-strict-overflow $_CCCOMCOM $SOURCES'"
 cache:
   directories:
     - node_modules
