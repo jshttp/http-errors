@@ -14,7 +14,7 @@ node_js:
   - "8.16"
   - "9.11"
   - "10.16"
-  - "11.10"
+  - "11.15"
 sudo: false
 dist: precise
 cache:
