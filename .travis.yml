@@ -15,6 +15,7 @@ node_js:
   - "9.11"
   - "10.16"
   - "11.15"
+  - "12.4"
 sudo: false
 dist: trusty
 env:
