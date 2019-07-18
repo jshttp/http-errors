@@ -7,24 +7,20 @@ var util = require('util')
 var README_PATH = path.join(__dirname, '..', 'README.md')
 var README_CONTENTS = fs.readFileSync(README_PATH, 'utf-8')
 
-for (var key in createError) {
-  if (!createError.hasOwnProperty(key)) {
-    continue
-  }
-
+Object.keys(createError).forEach(function (key) {
   if (!isNaN(key)) {
-    continue
+    return
   }
 
   var constructor = createError[key]
   var statusCode = constructor.prototype.statusCode
 
   if (createError[statusCode] !== constructor) {
-    continue
+    return
   }
 
   var regexp = new RegExp(util.format('^\\|%d\\s*\\|%s\\s*\\|$', statusCode, key), 'm')
 
   assert.ok(regexp.test(README_CONTENTS),
     util.format('README constructor list contains %d %s', statusCode, key))
-}
+})
