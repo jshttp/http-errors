@@ -159,14 +159,21 @@ function createClientErrorConstructor (HttpError, name, code) {
       writable: true
     })
 
+    ;['status', 'statusCode'].forEach(property => {
+      Object.defineProperty(err, property, {
+        enumerable: true,
+        configurable: true,
+        value: code,
+        writable: true
+      })
+    })
+
     return err
   }
 
   inherits(ClientError, HttpError)
   nameFunc(ClientError, className)
 
-  ClientError.prototype.status = code
-  ClientError.prototype.statusCode = code
   ClientError.prototype.expose = true
 
   return ClientError
@@ -207,14 +214,21 @@ function createServerErrorConstructor (HttpError, name, code) {
       writable: true
     })
 
+    ;['status', 'statusCode'].forEach(property => {
+      Object.defineProperty(err, property, {
+        enumerable: true,
+        configurable: true,
+        value: code,
+        writable: true
+      })
+    })
+
     return err
   }
 
   inherits(ServerError, HttpError)
   nameFunc(ServerError, className)
 
-  ServerError.prototype.status = code
-  ServerError.prototype.statusCode = code
   ServerError.prototype.expose = false
 
   return ServerError
