@@ -1,4 +1,3 @@
-
 process.env.NO_DEPRECATION = 'http-errors'
 
 var assert = require('assert')
@@ -319,30 +318,42 @@ describe('HTTP Errors', function () {
   })
 
   it('should preserve error [[Class]]', function () {
-    assert.strictEqual(Object.prototype.toString.call(createError('LOL')), '[object Error]')
-    assert.strictEqual(Object.prototype.toString.call(new createError[404]()), '[object Error]')
-    assert.strictEqual(Object.prototype.toString.call(new createError[500]()), '[object Error]')
+    assert.strictEqual(
+      Object.prototype.toString.call(createError('LOL')),
+      '[object Error]'
+    )
+    assert.strictEqual(
+      Object.prototype.toString.call(new createError[404]()),
+      '[object Error]'
+    )
+    assert.strictEqual(
+      Object.prototype.toString.call(new createError[500]()),
+      '[object Error]'
+    )
   })
 
   it('should support err instanceof Error', function () {
     assert(createError(404) instanceof Error)
-    assert((new createError['404']()) instanceof Error)
-    assert((new createError['500']()) instanceof Error)
+    assert(new createError['404']() instanceof Error)
+    assert(new createError['500']() instanceof Error)
   })
 
   it('should support err instanceof exposed constructor', function () {
     assert(createError(404) instanceof createError.NotFound)
     assert(createError(500) instanceof createError.InternalServerError)
-    assert((new createError['404']()) instanceof createError.NotFound)
-    assert((new createError['500']()) instanceof createError.InternalServerError)
-    assert((new createError.NotFound()) instanceof createError.NotFound)
-    assert((new createError.InternalServerError()) instanceof createError.InternalServerError)
+    assert(new createError['404']() instanceof createError.NotFound)
+    assert(new createError['500']() instanceof createError.InternalServerError)
+    assert(new createError.NotFound() instanceof createError.NotFound)
+    assert(
+      new createError.InternalServerError() instanceof
+        createError.InternalServerError
+    )
   })
 
   it('should support err instanceof HttpError', function () {
     assert(createError(404) instanceof createError.HttpError)
-    assert((new createError['404']()) instanceof createError.HttpError)
-    assert((new createError['500']()) instanceof createError.HttpError)
+    assert(new createError['404']() instanceof createError.HttpError)
+    assert(new createError['500']() instanceof createError.HttpError)
   })
 
   it('should support util.isError()', function () {
@@ -351,5 +362,21 @@ describe('HTTP Errors', function () {
     assert(util.isError(new createError['404']()))
     assert(util.isError(new createError['500']()))
     /* eslint-enable node/no-deprecated-api */
+  })
+
+  it('should not have the same serialization with different statuses', function () {
+    var err = new createError.NotFound('whoopsie')
+    assert.notStrictEqual(
+      JSON.stringify(err),
+      JSON.stringify(new createError.BadRequest('whoopsie'))
+    )
+  })
+
+  it('should have the same serialization with same statuses', function () {
+    var err = new createError.NotFound('whoopsie')
+    assert.strictEqual(
+      JSON.stringify(err),
+      JSON.stringify(new createError.NotFound('whoopsie'))
+    )
   })
 })
