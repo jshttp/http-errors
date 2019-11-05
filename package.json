@@ -28,7 +28,7 @@
     "mocha": "6.1.4"
   },
   "engines": {
-    "node": ">= 0.10"
+    "node": ">= 0.8"
   },
   "scripts": {
     "lint": "eslint --plugin markdown --ext js,md . && node ./scripts/lint-readme-list.js",
