@@ -1,5 +1,6 @@
 language: node_js
 node_js:
+  - "0.8"
   - "0.10"
   - "0.12"
   - "1.8"
@@ -71,7 +72,8 @@ before_install:
     fi
   - |
     # Configure mocha for testing
-    if   node_version_lt '0.10'; then npm_use_module 'mocha' '2.5.3'
+    if   node_version_lt '0.8' ; then npm_use_module 'mocha' '1.21.5'
+    elif node_version_lt '0.10'; then npm_use_module 'mocha' '2.5.3'
     elif node_version_lt '4.0' ; then npm_use_module 'mocha' '3.5.3'
     elif node_version_lt '6.0' ; then npm_use_module 'mocha' '5.2.0'
     fi
