@@ -2,7 +2,7 @@ unreleased / 2.0.0
 ==================
 
   * deps: depd@2.0.0
-     - Drop support for Node.js 0.6 + 0.8
+     - Drop support for Node.js 0.6
      - Replace internal `eval` usage with `Function` constructor
 
 2019-06-24 / 1.7.3
