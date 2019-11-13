@@ -132,9 +132,20 @@ function createHttpErrorConstructor () {
 function createClientErrorConstructor (HttpError, name, code) {
   var className = name.match(/Error$/) ? name : name + 'Error'
 
-  function ClientError (message) {
+  function ClientError () {
+    var message = arguments[0]
+    var props = {}
+
+    // Manage arity
+    if (typeof arguments[0] === 'object') {
+      message = null
+      props = arguments[0]
+    } else if (typeof arguments[1] === 'object') {
+      props = arguments[1]
+    }
+
     // create the error object
-    var msg = message != null ? message : statuses[code]
+    var msg = typeof message === 'string' ? message : statuses[code]
     var err = new Error(msg)
 
     // capture a stack trace to the construction point
@@ -159,6 +170,13 @@ function createClientErrorConstructor (HttpError, name, code) {
       writable: true
     })
 
+    // Add additional properties, if any
+    for (var key in props) {
+      if (key !== 'status' && key !== 'statusCode' && key !== 'message') {
+        err[key] = props[key]
+      }
+    }
+
     return err
   }
 
@@ -180,9 +198,20 @@ function createClientErrorConstructor (HttpError, name, code) {
 function createServerErrorConstructor (HttpError, name, code) {
   var className = name.match(/Error$/) ? name : name + 'Error'
 
-  function ServerError (message) {
+  function ServerError () {
+    var message = arguments[0]
+    var props = {}
+
+    // Manage arity
+    if (typeof arguments[0] === 'object') {
+      message = null
+      props = arguments[0]
+    } else if (typeof arguments[1] === 'object') {
+      props = arguments[1]
+    }
+
     // create the error object
-    var msg = message != null ? message : statuses[code]
+    var msg = typeof message === 'string' ? message : statuses[code]
     var err = new Error(msg)
 
     // capture a stack trace to the construction point
@@ -206,6 +235,13 @@ function createServerErrorConstructor (HttpError, name, code) {
       value: className,
       writable: true
     })
+
+    // Add additional properties, if any
+    for (var key in props) {
+      if (key !== 'status' && key !== 'statusCode' && key !== 'message') {
+        err[key] = props[key]
+      }
+    }
 
     return err
   }

@@ -60,7 +60,7 @@ var err = createError(404, 'This video does not exist!')
 ```
 
 - `status: 500` - the status code as a number
-- `message` - the message of the error, defaulting to node's text for that status code.
+- `message` - the message of the error, defaulting to node's text for that status code
 - `properties` - custom properties to attach to the object
 
 ### createError([status], [error], [properties])
@@ -88,19 +88,36 @@ fs.readFile('foo.txt', function (err, buf) {
 - `error` - the error object to extend
 - `properties` - custom properties to attach to the object
 
-### new createError\[code || name\](\[msg]\))
+### new createError\[code || name\](\[message], [properties]\))
 
-Create a new error object with the given message `msg`.
+Create a new error object with the given message `message` and custom `properties`.
 The error object inherits from `createError.HttpError`.
 
 <!-- eslint-disable no-undef, no-unused-vars -->
 
 ```js
-var err = new createError.NotFound()
+var err = new createError.NotFound('Resource not found.', { path: '/page' })
 ```
 
 - `code` - the status code as a number
-- `name` - the name of the error as a "bumpy case", i.e. `NotFound` or `InternalServerError`.
+- `name` - the name of the error as a "bumpy case", i.e. `NotFound` or `InternalServerError`
+- `message` - the message of the error
+- `properties` - custom properties to attach to the object
+
+### new createError\[code || name\](\[properties]\))
+
+Create a new error object with the given custom `properties` and defaulting the `message` to node's text for that status code.
+The error object inherits from `createError.HttpError`.
+
+<!-- eslint-disable no-undef, no-unused-vars -->
+
+```js
+var err = new createError.NotFound({ path: '/page' })
+```
+
+- `code` - the status code as a number
+- `name` - the name of the error as a "bumpy case", i.e. `NotFound` or `InternalServerError`
+- `properties` - custom properties to attach to the object
 
 #### List of all constructors
 

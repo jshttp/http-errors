@@ -1,4 +1,3 @@
-
 process.env.NO_DEPRECATION = 'http-errors'
 
 var assert = require('assert')
@@ -298,6 +297,38 @@ describe('HTTP Errors', function () {
     assert(err.stack)
   })
 
+  it('new createError.NotFound(message)', function () {
+    var err = new createError.NotFound('LOL')
+    assert.strictEqual(err.name, 'NotFoundError')
+    assert.strictEqual(err.message, 'LOL')
+    assert.strictEqual(err.status, 404)
+    assert.strictEqual(err.statusCode, 404)
+    assert.strictEqual(err.expose, true)
+    assert(err.stack)
+  })
+
+  it('new createError.NotFound(props)', function () {
+    var err = new createError.NotFound({ id: 1 })
+    assert.strictEqual(err.name, 'NotFoundError')
+    assert.strictEqual(err.message, 'Not Found')
+    assert.strictEqual(err.status, 404)
+    assert.strictEqual(err.statusCode, 404)
+    assert.strictEqual(err.expose, true)
+    assert.strictEqual(err.id, 1)
+    assert(err.stack)
+  })
+
+  it('new createError.NotFound(message, props)', function () {
+    var err = new createError.NotFound('LOL', { id: 1 })
+    assert.strictEqual(err.name, 'NotFoundError')
+    assert.strictEqual(err.message, 'LOL')
+    assert.strictEqual(err.status, 404)
+    assert.strictEqual(err.statusCode, 404)
+    assert.strictEqual(err.expose, true)
+    assert.strictEqual(err.id, 1)
+    assert(err.stack)
+  })
+
   it('new createError.InternalServerError()', function () {
     var err = new createError.InternalServerError()
     assert.strictEqual(err.name, 'InternalServerError')
@@ -308,6 +339,38 @@ describe('HTTP Errors', function () {
     assert(err.stack)
   })
 
+  it('new createError.InternalServerError(message)', function () {
+    var err = new createError.InternalServerError('LOL')
+    assert.strictEqual(err.name, 'InternalServerError')
+    assert.strictEqual(err.message, 'LOL')
+    assert.strictEqual(err.status, 500)
+    assert.strictEqual(err.statusCode, 500)
+    assert.strictEqual(err.expose, false)
+    assert(err.stack)
+  })
+
+  it('new createError.InternalServerError(props)', function () {
+    var err = new createError.InternalServerError({ id: 1 })
+    assert.strictEqual(err.name, 'InternalServerError')
+    assert.strictEqual(err.message, 'Internal Server Error')
+    assert.strictEqual(err.status, 500)
+    assert.strictEqual(err.statusCode, 500)
+    assert.strictEqual(err.expose, false)
+    assert.strictEqual(err.id, 1)
+    assert(err.stack)
+  })
+
+  it('new createError.InternalServerError(message, props)', function () {
+    var err = new createError.InternalServerError('LOL', { id: 1 })
+    assert.strictEqual(err.name, 'InternalServerError')
+    assert.strictEqual(err.message, 'LOL')
+    assert.strictEqual(err.status, 500)
+    assert.strictEqual(err.statusCode, 500)
+    assert.strictEqual(err.expose, false)
+    assert.strictEqual(err.id, 1)
+    assert(err.stack)
+  })
+
   it('new createError["404"]()', function () {
     var err = new createError['404']()
     assert.strictEqual(err.name, 'NotFoundError')
@@ -315,6 +378,80 @@ describe('HTTP Errors', function () {
     assert.strictEqual(err.status, 404)
     assert.strictEqual(err.statusCode, 404)
     assert.strictEqual(err.expose, true)
+    assert(err.stack)
+  })
+
+  it('new createError["404"](message)', function () {
+    var err = new createError['404']('LOL')
+    assert.strictEqual(err.name, 'NotFoundError')
+    assert.strictEqual(err.message, 'LOL')
+    assert.strictEqual(err.status, 404)
+    assert.strictEqual(err.statusCode, 404)
+    assert.strictEqual(err.expose, true)
+    assert(err.stack)
+  })
+
+  it('new createError["404"](props)', function () {
+    var err = new createError['404']({ id: 1 })
+    assert.strictEqual(err.name, 'NotFoundError')
+    assert.strictEqual(err.message, 'Not Found')
+    assert.strictEqual(err.status, 404)
+    assert.strictEqual(err.statusCode, 404)
+    assert.strictEqual(err.expose, true)
+    assert.strictEqual(err.id, 1)
+    assert(err.stack)
+  })
+
+  it('new createError["404"](message, props)', function () {
+    var err = new createError['404']('LOL', { id: 1 })
+    assert.strictEqual(err.name, 'NotFoundError')
+    assert.strictEqual(err.message, 'LOL')
+    assert.strictEqual(err.status, 404)
+    assert.strictEqual(err.statusCode, 404)
+    assert.strictEqual(err.expose, true)
+    assert.strictEqual(err.id, 1)
+    assert(err.stack)
+  })
+
+  it('new createError["500"]()', function () {
+    var err = new createError['500']()
+    assert.strictEqual(err.name, 'InternalServerError')
+    assert.strictEqual(err.message, 'Internal Server Error')
+    assert.strictEqual(err.status, 500)
+    assert.strictEqual(err.statusCode, 500)
+    assert.strictEqual(err.expose, false)
+    assert(err.stack)
+  })
+
+  it('new createError["500"](message)', function () {
+    var err = new createError['500']('LOL')
+    assert.strictEqual(err.name, 'InternalServerError')
+    assert.strictEqual(err.message, 'LOL')
+    assert.strictEqual(err.status, 500)
+    assert.strictEqual(err.statusCode, 500)
+    assert.strictEqual(err.expose, false)
+    assert(err.stack)
+  })
+
+  it('new createError["500"](props)', function () {
+    var err = new createError['500']({ id: 1 })
+    assert.strictEqual(err.name, 'InternalServerError')
+    assert.strictEqual(err.message, 'Internal Server Error')
+    assert.strictEqual(err.status, 500)
+    assert.strictEqual(err.statusCode, 500)
+    assert.strictEqual(err.expose, false)
+    assert.strictEqual(err.id, 1)
+    assert(err.stack)
+  })
+
+  it('new createError["500"](message, props)', function () {
+    var err = new createError['500']('LOL', { id: 1 })
+    assert.strictEqual(err.name, 'InternalServerError')
+    assert.strictEqual(err.message, 'LOL')
+    assert.strictEqual(err.status, 500)
+    assert.strictEqual(err.statusCode, 500)
+    assert.strictEqual(err.expose, false)
+    assert.strictEqual(err.id, 1)
     assert(err.stack)
   })
 
