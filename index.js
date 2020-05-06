@@ -130,7 +130,7 @@ function createHttpErrorConstructor () {
  */
 
 function createClientErrorConstructor (HttpError, name, code) {
-  var className = name.match(/Error$/) ? name : name + 'Error'
+  var className = toClassName(name)
 
   function ClientError (message) {
     // create the error object
@@ -178,7 +178,7 @@ function createClientErrorConstructor (HttpError, name, code) {
  */
 
 function createServerErrorConstructor (HttpError, name, code) {
-  var className = name.match(/Error$/) ? name : name + 'Error'
+  var className = toClassName(name)
 
   function ServerError (message) {
     // create the error object
@@ -263,4 +263,15 @@ function populateConstructorExports (exports, codes, HttpError) {
   // backwards-compatibility
   exports["I'mateapot"] = deprecate.function(exports.ImATeapot,
     '"I\'mateapot"; use "ImATeapot" instead')
+}
+
+/**
+ * Get a class name from a name identifier.
+ * @private
+ */
+
+function toClassName (name) {
+  return name.substr(-5) !== 'Error'
+    ? name + 'Error'
+    : name
 }
