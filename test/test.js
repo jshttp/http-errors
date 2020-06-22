@@ -122,6 +122,62 @@ describe('createError(status, message)', function () {
   })
 })
 
+describe('createError.isHttpError(val)', function () {
+  describe('when val is undefined', function () {
+    it('should return false', function () {
+      assert.strictEqual(createError.isHttpError(undefined), false)
+    })
+  })
+
+  describe('when val is null', function () {
+    it('should return false', function () {
+      assert.strictEqual(createError.isHttpError(null), false)
+    })
+  })
+
+  describe('when val is a number', function () {
+    it('should return false', function () {
+      assert.strictEqual(createError.isHttpError(42), false)
+    })
+  })
+
+  describe('when val is a string', function () {
+    it('should return false', function () {
+      assert.strictEqual(createError.isHttpError('foobar'), false)
+    })
+  })
+
+  describe('when val is an empty object', function () {
+    it('should return false', function () {
+      assert.strictEqual(createError.isHttpError({}), false)
+    })
+  })
+
+  describe('when val is a plain Error', function () {
+    it('should return false', function () {
+      assert.strictEqual(createError.isHttpError(new Error()), false)
+    })
+  })
+
+  describe('when val is an instance of HttpError', function () {
+    it('should return true', function () {
+      var err = createError(500)
+
+      assert.ok(err instanceof createError.HttpError)
+      assert.strictEqual(createError.isHttpError(err), true)
+    })
+  })
+
+  describe('when val is an Error passed to createError', function () {
+    it('should return true', function () {
+      var err = createError(500, new Error())
+
+      assert.ok(!(err instanceof createError.HttpError))
+      assert.strictEqual(createError.isHttpError(err), true)
+    })
+  })
+})
+
 describe('HTTP Errors', function () {
   it('createError(status, props)', function () {
     var err = createError(404, {

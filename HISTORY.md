@@ -1,6 +1,7 @@
 unreleased
 ==========
 
+  * Add `isHttpError` export to determine if value is an HTTP error
   * deps: setprototypeof@1.2.0
 
 2019-06-24 / 1.7.3
