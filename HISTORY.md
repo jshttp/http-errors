@@ -1,3 +1,8 @@
+2.x
+===
+
+  * Remove `I'mateapot` export; use `ImATeapot` instead
+
 2021-11-14 / 1.8.1
 ==================
 
