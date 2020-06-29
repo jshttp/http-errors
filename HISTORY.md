@@ -1,3 +1,8 @@
+2.x
+===
+
+  * Remove `I'mateapot` export; use `ImATeapot` instead
+
 2020-06-29 / 1.8.0
 ==================
 
