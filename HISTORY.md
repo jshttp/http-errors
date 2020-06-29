@@ -1,5 +1,5 @@
-unreleased
-==========
+2020-06-29 / 1.8.0
+==================
 
   * Add `isHttpError` export to determine if value is an HTTP error
   * deps: setprototypeof@1.2.0
