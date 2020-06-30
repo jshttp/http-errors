@@ -1,6 +1,7 @@
 2.x
 ===
 
+  * Drop support for Node.js 0.6
   * Remove `I'mateapot` export; use `ImATeapot` instead
 
 2021-11-14 / 1.8.1

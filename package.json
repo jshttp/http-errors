@@ -28,7 +28,7 @@
     "nyc": "15.1.0"
   },
   "engines": {
-    "node": ">= 0.6"
+    "node": ">= 0.8"
   },
   "scripts": {
     "lint": "eslint . && node ./scripts/lint-readme-list.js",

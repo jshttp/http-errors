@@ -6,11 +6,10 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         name:
-        - Node.js 0.6
         - Node.js 0.8
         - Node.js 0.10
         - Node.js 0.12
@@ -33,11 +32,6 @@ jobs:
         - Node.js 17.x
 
         include:
-        - name: Node.js 0.6
-          node-version: "0.6"
-          npm-i: mocha@1.21.5
-          npm-rm: nyc
-
         - name: Node.js 0.8
           node-version: "0.8"
           npm-i: mocha@2.5.3
@@ -119,21 +113,11 @@ jobs:
     - name: Install Node.js ${{ matrix.node-version }}
       shell: bash -eo pipefail -l {0}
       run: |
-        if [[ "${{ matrix.node-version }}" == 0.6* ]]; then
-          sudo apt-get install g++-4.8 gcc-4.8 libssl1.0-dev
-          export CC=/usr/bin/gcc-4.8
-          export CXX=/usr/bin/g++-4.8
-        fi
         nvm install --default ${{ matrix.node-version }}
         if [[ "${{ matrix.node-version }}" == 0.* && "$(cut -d. -f2 <<< "${{ matrix.node-version }}")" -lt 10 ]]; then
           nvm install --alias=npm 0.10
           nvm use ${{ matrix.node-version }}
-          if [[ "$(npm -v)" == 1.1.* ]]; then
-            nvm exec npm npm install -g npm@1.1
-            ln -fs "$(which npm)" "$(dirname "$(nvm which npm)")/npm"
-          else
-            sed -i '1s;^.*$;'"$(printf '#!%q' "$(nvm which npm)")"';' "$(readlink -f "$(which npm)")"
-          fi
+          sed -i '1s;^.*$;'"$(printf '#!%q' "$(nvm which npm)")"';' "$(readlink -f "$(which npm)")"
           npm config set strict-ssl false
         fi
         dirname "$(nvm which ${{ matrix.node-version }})" >> "$GITHUB_PATH"
