@@ -3,6 +3,9 @@
 
   * Drop support for Node.js 0.6
   * Remove `I'mateapot` export; use `ImATeapot` instead
+  * deps: depd@2.0.0
+    - Replace internal `eval` usage with `Function` constructor
+    - Use instance methods on `process` to check for listeners
 
 2021-11-14 / 1.8.1
 ==================
