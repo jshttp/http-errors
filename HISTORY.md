@@ -1,3 +1,17 @@
+2.x
+===
+
+  * Drop support for Node.js 0.6
+  * Remove `I'mateapot` export; use `ImATeapot` instead
+  * Rename `UnorderedCollection` constructor to `TooEarly`
+  * deps: depd@2.0.0
+    - Replace internal `eval` usage with `Function` constructor
+    - Use instance methods on `process` to check for listeners
+  * deps: statuses@2.0.0
+    - Fix messaging casing of `418 I'm a Teapot`
+    - Remove code 306
+    - Rename `425 Unordered Collection` to standard `425 Too Early`
+
 2020-06-29 / 1.8.0
 ==================
 

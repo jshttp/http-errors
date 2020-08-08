@@ -10,10 +10,10 @@
   "license": "MIT",
   "repository": "jshttp/http-errors",
   "dependencies": {
-    "depd": "~1.1.2",
+    "depd": "2.0.0",
     "inherits": "2.0.4",
     "setprototypeof": "1.2.0",
-    "statuses": ">= 1.5.0 < 2",
+    "statuses": "2.0.0",
     "toidentifier": "1.0.0"
   },
   "devDependencies": {
@@ -28,7 +28,7 @@
     "nyc": "15.1.0"
   },
   "engines": {
-    "node": ">= 0.6"
+    "node": ">= 0.8"
   },
   "scripts": {
     "lint": "eslint --plugin markdown --ext js,md . && node ./scripts/lint-readme-list.js",
