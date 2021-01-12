@@ -66,7 +66,7 @@ function createError () {
       case 'number':
         status = arg
         if (i !== 0) {
-          deprecate('non-first-argument status code; replace with createError(' + arg + ', ...)')
+          throw new Error('should status code be the first argument.')
         }
         break
       case 'object':
