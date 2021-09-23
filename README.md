@@ -3,7 +3,7 @@
 [![NPM Version][npm-version-image]][npm-url]
 [![NPM Downloads][npm-downloads-image]][node-url]
 [![Node.js Version][node-image]][node-url]
-[![Build Status][travis-image]][travis-url]
+[![Build Status][ci-image]][ci-url]
 [![Test Coverage][coveralls-image]][coveralls-url]
 
 Create HTTP errors for Express, Koa, Connect, etc. with ease.
@@ -160,6 +160,8 @@ var err = new createError.NotFound()
 
 [MIT](LICENSE)
 
+[ci-image]: https://badgen.net/github/checks/jshttp/http-errors/master?label=ci
+[ci-url]: https://github.com/jshttp/http-errors/actions?query=workflow%3Aci
 [coveralls-image]: https://badgen.net/coveralls/c/github/jshttp/http-errors/master
 [coveralls-url]: https://coveralls.io/r/jshttp/http-errors?branch=master
 [node-image]: https://badgen.net/npm/node/http-errors
