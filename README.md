@@ -53,8 +53,6 @@ This is the current API, currently extracted from Koa and subject to change.
 Create a new error object with the given message `msg`.
 The error object inherits from `createError.HttpError`.
 
-<!-- eslint-disable no-undef, no-unused-vars -->
-
 ```js
 var err = createError(404, 'This video does not exist!')
 ```
@@ -70,7 +68,7 @@ properties. This will not alter the inheritance of the given
 `error` object, and the modified `error` object is the
 return value.
 
-<!-- eslint-disable no-redeclare, no-undef, no-unused-vars -->
+<!-- eslint-disable no-redeclare -->
 
 ```js
 fs.readFile('foo.txt', function (err, buf) {
@@ -100,8 +98,6 @@ if an non-`HttpError` was passed into the factory.
 
 Create a new error object with the given message `msg`.
 The error object inherits from `createError.HttpError`.
-
-<!-- eslint-disable no-undef, no-unused-vars -->
 
 ```js
 var err = new createError.NotFound()
