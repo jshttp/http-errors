@@ -96,7 +96,7 @@ matches the "duck type" for an error this module creates. All outputs from
 the `createError` factory will return `true` for this function, including
 if an non-`HttpError` was passed into the factory.
 
-### new createError\[code || name\](\[msg]\))
+### new createError.\[code || name\](\[msg]\))
 
 Create a new error object with the given message `msg`.
 The error object inherits from `createError.HttpError`.
