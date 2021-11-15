@@ -133,7 +133,7 @@ var err = new createError.NotFound()
 |422        |UnprocessableEntity          |
 |423        |Locked                       |
 |424        |FailedDependency             |
-|425        |UnorderedCollection          |
+|425        |TooEarly                     |
 |426        |UpgradeRequired              |
 |428        |PreconditionRequired         |
 |429        |TooManyRequests              |
