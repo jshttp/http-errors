@@ -54,24 +54,18 @@ function createError () {
   var props = {}
   for (var i = 0; i < arguments.length; i++) {
     var arg = arguments[i]
-    if (arg instanceof Error) {
+    var type = typeof arg
+    if (type === 'object' && arg instanceof Error) {
       err = arg
       status = err.status || err.statusCode || status
-      continue
-    }
-    switch (typeof arg) {
-      case 'string':
-        msg = arg
-        break
-      case 'number':
-        status = arg
-        if (i !== 0) {
-          deprecate('non-first-argument status code; replace with createError(' + arg + ', ...)')
-        }
-        break
-      case 'object':
-        props = arg
-        break
+    } else if (type === 'number' && i === 0) {
+      status = arg
+    } else if (type === 'string') {
+      msg = arg
+    } else if (type === 'object') {
+      props = arg
+    } else {
+      throw new TypeError('argument #' + (i + 1) + ' unsupported type ' + type)
     }
   }
 

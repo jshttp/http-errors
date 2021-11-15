@@ -3,6 +3,7 @@
 
   * Drop support for Node.js 0.6
   * Remove `I'mateapot` export; use `ImATeapot` instead
+  * Remove support for status being non-first argument
   * Rename `UnorderedCollection` constructor to `TooEarly`
   * deps: depd@2.0.0
     - Replace internal `eval` usage with `Function` constructor

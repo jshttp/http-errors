@@ -226,11 +226,9 @@ describe('HTTP Errors', function () {
   })
 
   it('createError(msg, status)', function () {
-    var err = createError('LOL', 404)
-    assert.strictEqual(err.name, 'NotFoundError')
-    assert.strictEqual(err.message, 'LOL')
-    assert.strictEqual(err.status, 404)
-    assert.strictEqual(err.statusCode, 404)
+    assert.throws(function () {
+      createError('LOL', 404)
+    }, /argument #2 unsupported type number/)
   })
 
   it('createError(msg)', function () {
