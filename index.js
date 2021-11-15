@@ -91,13 +91,36 @@ function createError () {
 
   if (!HttpError || !(err instanceof HttpError) || err.status !== status) {
     // add properties to generic error
-    err.expose = status < 500
-    err.status = err.statusCode = status
+    Object.defineProperties(err, {
+      expose: {
+        enumerable: false,
+        configurable: true,
+        value: status < 500,
+        writable: true
+      },
+      status: {
+        enumerable: false,
+        configurable: true,
+        value: status,
+        writable: true
+      },
+      statusCode: {
+        enumerable: false,
+        configurable: true,
+        value: status,
+        writable: true
+      }
+    })
   }
 
   for (var key in props) {
     if (key !== 'status' && key !== 'statusCode') {
-      err[key] = props[key]
+      Object.defineProperty(err, key, {
+        enumerable: false,
+        configurable: true,
+        value: props[key],
+        writable: true
+      })
     }
   }
 
@@ -140,7 +163,7 @@ function createClientErrorConstructor (HttpError, name, code) {
 
     // redefine the error message
     Object.defineProperty(err, 'message', {
-      enumerable: true,
+      enumerable: false,
       configurable: true,
       value: msg,
       writable: true
@@ -160,9 +183,26 @@ function createClientErrorConstructor (HttpError, name, code) {
   inherits(ClientError, HttpError)
   nameFunc(ClientError, className)
 
-  ClientError.prototype.status = code
-  ClientError.prototype.statusCode = code
-  ClientError.prototype.expose = true
+  Object.defineProperties(ClientError.prototype, {
+    expose: {
+      enumerable: false,
+      configurable: true,
+      value: true,
+      writable: true
+    },
+    status: {
+      enumerable: false,
+      configurable: true,
+      value: code,
+      writable: true
+    },
+    statusCode: {
+      enumerable: false,
+      configurable: true,
+      value: code,
+      writable: true
+    }
+  })
 
   return ClientError
 }
@@ -209,7 +249,7 @@ function createServerErrorConstructor (HttpError, name, code) {
 
     // redefine the error message
     Object.defineProperty(err, 'message', {
-      enumerable: true,
+      enumerable: false,
       configurable: true,
       value: msg,
       writable: true
@@ -229,9 +269,26 @@ function createServerErrorConstructor (HttpError, name, code) {
   inherits(ServerError, HttpError)
   nameFunc(ServerError, className)
 
-  ServerError.prototype.status = code
-  ServerError.prototype.statusCode = code
-  ServerError.prototype.expose = false
+  Object.defineProperties(ServerError.prototype, {
+    expose: {
+      enumerable: false,
+      configurable: true,
+      value: false,
+      writable: true
+    },
+    status: {
+      enumerable: false,
+      configurable: true,
+      value: code,
+      writable: true
+    },
+    statusCode: {
+      enumerable: false,
+      configurable: true,
+      value: code,
+      writable: true
+    }
+  })
 
   return ServerError
 }

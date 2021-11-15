@@ -1,6 +1,7 @@
 2.x
 ===
 
+  * Add all properties as non-enumerable to match global `Error`
   * Drop support for Node.js 0.6
   * Remove `I'mateapot` export; use `ImATeapot` instead
   * Remove support for status being non-first argument

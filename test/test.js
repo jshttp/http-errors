@@ -109,16 +109,34 @@ describe('createError(status, message)', function () {
     assert.ok(util.isError(this.error)) // eslint-disable-line node/no-deprecated-api
   })
 
-  it('should have "message" property with message', function () {
-    assert.strictEqual(this.error.message, 'missing')
+  describe('"message" property', function () {
+    it('should have a value of the message argument', function () {
+      assert.strictEqual(this.error.message, 'missing')
+    })
+
+    it('should be non-enumerable', function () {
+      assert.strictEqual(getPropertyDescriptor(this.error, 'message').enumerable, false)
+    })
   })
 
-  it('should have "status" property with status', function () {
-    assert.strictEqual(this.error.status, 404)
+  describe('"status" property', function () {
+    it('should have a value of the status argument', function () {
+      assert.strictEqual(this.error.status, 404)
+    })
+
+    it('should be non-enumerable', function () {
+      assert.strictEqual(getPropertyDescriptor(this.error, 'status').enumerable, false)
+    })
   })
 
-  it('should have "statusCode" property with status', function () {
-    assert.strictEqual(this.error.statusCode, 404)
+  describe('"statusCode" property', function () {
+    it('should have a value of the status argument', function () {
+      assert.strictEqual(this.error.statusCode, 404)
+    })
+
+    it('should be non-enumerable', function () {
+      assert.strictEqual(getPropertyDescriptor(this.error, 'statusCode').enumerable, false)
+    })
   })
 })
 
@@ -407,3 +425,15 @@ describe('HTTP Errors', function () {
     /* eslint-enable node/no-deprecated-api */
   })
 })
+
+function getPropertyDescriptor (obj, name) {
+  var d
+  var o = obj
+
+  while (o && !d) {
+    d = Object.getOwnPropertyDescriptor(o, name)
+    o = Object.getPrototypeOf(o)
+  }
+
+  return d
+}
