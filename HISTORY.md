@@ -1,5 +1,5 @@
-2.x
-===
+2.0.0 / 2021-12-17
+==================
 
   * Drop support for Node.js 0.6
   * Remove `I'mateapot` export; use `ImATeapot` instead
