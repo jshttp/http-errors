@@ -48,7 +48,9 @@ This is the current API, currently extracted from Koa and subject to change.
   compatibility
 - `statusCode` - the status code of the error, defaulting to `500`
 
-### createError([status], [message], [properties])
+### ⏵ function [createError](https://github.com/jshttp/http-errors/blob/206aa2c15635dc1212c06c279540972aa90e23ea/index.js#L49)([status], [[message](https://github.com/jshttp/http-errors/blob/206aa2c15635dc1212c06c279540972aa90e23ea/index.js#L63)], [properties])
+`createError([status], [message], [properties])`
+
 
 Create a new error object with the given message `msg`.
 The error object inherits from `createError.HttpError`.
@@ -61,7 +63,9 @@ var err = createError(404, 'This video does not exist!')
 - `message` - the message of the error, defaulting to node's text for that status code.
 - `properties` - custom properties to attach to the object
 
-### createError([status], [error], [properties])
+### ⏵ function [createError](https://github.com/jshttp/http-errors/blob/206aa2c15635dc1212c06c279540972aa90e23ea/index.js#L49)([status], [[error](https://github.com/jshttp/http-errors/blob/206aa2c15635dc1212c06c279540972aa90e23ea/index.js#L58)], [properties])
+`createError([status], [error], [properties])`
+
 
 Extend the given `error` object with `createError.HttpError`
 properties. This will not alter the inheritance of the given
@@ -86,7 +90,9 @@ fs.readFile('foo.txt', function (err, buf) {
 - `error` - the error object to extend
 - `properties` - custom properties to attach to the object
 
-### createError.isHttpError(val)
+### ⏵ createError.[isHttpError(val)](https://github.com/jshttp/http-errors/blob/206aa2c15635dc1212c06c279540972aa90e23ea/index.js#L176)
+`createError.isHttpError(val)`
+
 
 Determine if the provided `val` is an `HttpError`. This will return `true`
 if the error inherits from the `HttpError` constructor of this module or
@@ -94,7 +100,9 @@ matches the "duck type" for an error this module creates. All outputs from
 the `createError` factory will return `true` for this function, including
 if an non-`HttpError` was passed into the factory.
 
-### new createError\[code || name\](\[msg]\))
+### ⏵ new [`createError\[code || name\](\[msg]\))`](https://github.com/jshttp/http-errors/blob/206aa2c15635dc1212c06c279540972aa90e23ea/index.js#L82)
+`new createError\[code || name\](\[msg]\))`
+
 
 Create a new error object with the given message `msg`.
 The error object inherits from `createError.HttpError`.
