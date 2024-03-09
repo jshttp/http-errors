@@ -178,6 +178,35 @@ describe('createError.isHttpError(val)', function () {
   })
 })
 
+describe('Subclass Instantiation', function () {
+  it('should allow instantiation of ClientError subclasses', function () {
+    assert.doesNotThrow(() => {
+      // eslint-disable-next-line no-new
+      new createError.NotFound()
+    })
+  })
+
+  it('should allow instantiation of ServerError subclasses', function () {
+    assert.doesNotThrow(() => {
+      // eslint-disable-next-line no-new
+      new createError.InternalServerError()
+    })
+  })
+})
+
+describe('Prototype Chain Adjustments', function () {
+  it('CustomError instances should have the correct prototype chain', function () {
+    class CustomError extends createError.NotFound {}
+    const err = new CustomError()
+    assert(err instanceof CustomError)
+    assert(err instanceof createError.NotFound)
+    // we don't export ClientError currently
+    // assert(err instanceof createError.ClientError)
+    assert(err instanceof createError.HttpError)
+    assert(err instanceof Error)
+  })
+})
+
 describe('HTTP Errors', function () {
   it('createError(status, props)', function () {
     var err = createError(404, {
@@ -336,7 +365,7 @@ describe('HTTP Errors', function () {
     assert.strictEqual(err.expose, false)
   })
 
-  it('new createError.HttpError()', function () {
+  it('should throw when directly instantiating HttpError', function () {
     assert.throws(function () {
       new createError.HttpError() // eslint-disable-line no-new
     }, /cannot construct abstract class/)
