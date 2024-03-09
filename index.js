@@ -111,7 +111,7 @@ function createError () {
 
 function createHttpErrorConstructor () {
   function HttpError () {
-    if (new.target === HttpError) {
+    if (!new.target || new.target === HttpError) {
       throw new TypeError('cannot construct abstract class')
     }
   }
