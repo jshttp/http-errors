@@ -11,6 +11,24 @@ describe('createError(status)', function () {
     assert.ok(util.isError(createError(500))) // eslint-disable-line node/no-deprecated-api
   })
 
+  describe('Extending Existing Errors with HTTP Properties', function () {
+    it('should extend an existing error with HTTP properties without altering its prototype', function () {
+      const nativeError = new Error('This is a test error')
+
+      // Extend the error with HTTP semantics
+      const httpError = createError(404, nativeError, { expose: false })
+
+      assert.strictEqual(httpError.status, 404)
+      assert.strictEqual(httpError.expose, false)
+
+      assert.strictEqual(httpError.message, 'This is a test error')
+
+      assert(httpError instanceof Error)
+
+      assert.strictEqual(Object.getPrototypeOf(httpError), Error.prototype)
+    })
+  })
+
   describe('when status 300', function () {
     before(function () {
       this.error = createError(300)
