@@ -184,12 +184,19 @@ describe('Subclass Instantiation', function () {
       // eslint-disable-next-line no-new
       new createError.NotFound()
     })
+    assert.doesNotThrow(() => {
+      // eslint-disable-next-line no-new
+      createError.NotFound()
+    })
   })
 
   it('should allow instantiation of ServerError subclasses', function () {
     assert.doesNotThrow(() => {
       // eslint-disable-next-line no-new
       new createError.InternalServerError()
+    })
+    assert.doesNotThrow(() => {
+      createError.InternalServerError()
     })
   })
 })
@@ -368,6 +375,10 @@ describe('HTTP Errors', function () {
   it('should throw when directly instantiating HttpError', function () {
     assert.throws(function () {
       new createError.HttpError() // eslint-disable-line no-new
+    }, /cannot construct abstract class/)
+
+    assert.throws(function () {
+      createError.HttpError()
     }, /cannot construct abstract class/)
   })
 
