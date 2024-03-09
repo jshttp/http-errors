@@ -111,7 +111,9 @@ function createError () {
 
 function createHttpErrorConstructor () {
   function HttpError () {
-    throw new TypeError('cannot construct abstract class')
+    if (new.target === HttpError) {
+      throw new TypeError('cannot construct abstract class')
+    }
   }
 
   inherits(HttpError, Error)
@@ -130,13 +132,15 @@ function createClientErrorConstructor (HttpError, name, code) {
   function ClientError (message) {
     // create the error object
     var msg = message != null ? message : statuses.message[code]
-    var err = new Error(msg)
+    var err = Reflect.construct(Error, [msg], new.target || ClientError)
 
     // capture a stack trace to the construction point
     Error.captureStackTrace(err, ClientError)
 
-    // adjust the [[Prototype]]
-    setPrototypeOf(err, ClientError.prototype)
+    // adjust the [[Prototype]] if new.target is not ClientError
+    if (new.target && new.target !== ClientError) {
+      setPrototypeOf(err, new.target.prototype)
+    }
 
     // redefine the error message
     Object.defineProperty(err, 'message', {
@@ -199,13 +203,15 @@ function createServerErrorConstructor (HttpError, name, code) {
   function ServerError (message) {
     // create the error object
     var msg = message != null ? message : statuses.message[code]
-    var err = new Error(msg)
+    var err = Reflect.construct(Error, [msg], new.target || ServerError)
 
     // capture a stack trace to the construction point
     Error.captureStackTrace(err, ServerError)
 
-    // adjust the [[Prototype]]
-    setPrototypeOf(err, ServerError.prototype)
+    // adjust the [[Prototype]] if new.target is not ClientError
+    if (new.target && new.target !== ServerError) {
+      setPrototypeOf(err, new.target.prototype)
+    }
 
     // redefine the error message
     Object.defineProperty(err, 'message', {
