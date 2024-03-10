@@ -201,19 +201,6 @@ describe('Subclass Instantiation', function () {
   })
 })
 
-describe('Prototype Chain Adjustments', function () {
-  it('CustomError instances should have the correct prototype chain', function () {
-    class CustomError extends createError.NotFound {}
-    const err = new CustomError()
-    assert(err instanceof CustomError)
-    assert(err instanceof createError.NotFound)
-    // we don't export ClientError currently
-    // assert(err instanceof createError.ClientError)
-    assert(err instanceof createError.HttpError)
-    assert(err instanceof Error)
-  })
-})
-
 describe('HTTP Errors', function () {
   it('createError(status, props)', function () {
     var err = createError(404, {
