@@ -137,11 +137,6 @@ function createClientErrorConstructor (HttpError, name, code) {
     // capture a stack trace to the construction point
     Error.captureStackTrace(err, ClientError)
 
-    // adjust the [[Prototype]] if new.target is not this class
-    if (new.target && new.target !== ClientError) {
-      setPrototypeOf(err, new.target.prototype)
-    }
-
     // redefine the error message
     Object.defineProperty(err, 'message', {
       enumerable: true,
@@ -207,11 +202,6 @@ function createServerErrorConstructor (HttpError, name, code) {
 
     // capture a stack trace to the construction point
     Error.captureStackTrace(err, ServerError)
-
-    // adjust the [[Prototype]] if new.target is not this class
-    if (new.target && new.target !== ServerError) {
-      setPrototypeOf(err, new.target.prototype)
-    }
 
     // redefine the error message
     Object.defineProperty(err, 'message', {
