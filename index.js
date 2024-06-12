@@ -283,7 +283,7 @@ function populateConstructorExports (exports, codes, HttpError) {
  */
 
 function toClassName (name) {
-  return name.substr(-5) !== 'Error'
+  return name.slice(-5) !== 'Error'
     ? name + 'Error'
     : name
 }
