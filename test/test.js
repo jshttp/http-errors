@@ -5,6 +5,7 @@ var assert = require('assert')
 var util = require('util')
 
 var createError = require('..')
+const { HttpError } = createError
 
 describe('createError(status)', function () {
   it('should create error object', function () {
@@ -405,5 +406,22 @@ describe('HTTP Errors', function () {
     assert(util.isError(new createError['404']()))
     assert(util.isError(new createError['500']()))
     /* eslint-enable node/no-deprecated-api */
+  })
+})
+
+describe('Inheritance', function () {
+  it('should support subclasses', function () {
+    class MyError extends HttpError {
+    }
+    const err = new MyError()
+    assert.ok(err instanceof HttpError, 'subclass instances are instances of HttpError')
+  })
+
+  it('should set status and message', function () {
+    class MyError extends HttpError {
+    }
+    const err = new MyError(202, 'My Error')
+    assert.strictEqual(err.status, 202)
+    assert.strictEqual(err.message, 'My Error')
   })
 })
