@@ -94,7 +94,6 @@ function createError () {
     err = HttpError
       ? new HttpError(msg)
       : new Error(msg || statuses.message[status])
-    Error.captureStackTrace(err, createError)
   }
 
   if (!HttpError || !(err instanceof HttpError) || err.status !== status) {
