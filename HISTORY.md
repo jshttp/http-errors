@@ -1,3 +1,8 @@
+Unreleased changes
+==================
+
+  * improve toClassName function readability and JSDoc completeness
+
 2.0.0 / 2021-12-17
 ==================
 
