@@ -406,4 +406,26 @@ describe('HTTP Errors', function () {
     assert(util.isError(new createError['500']()))
     /* eslint-enable node/no-deprecated-api */
   })
+
+  it('should interoperate with ES6 classes', function () {
+    class MyHttpError extends createError.HttpError {
+      constructor () {
+        super()
+        this.name = 'MyHttpError'
+        this.message = 'ES6 class HTTPError'
+        this.status = 404
+        this.myProp = 'test'
+      }
+    }
+
+    // Testing PR#99: This line should not throw TypeError('cannot construct abstract class')
+    const err = new MyHttpError()
+    assert.strictEqual(err.name, 'MyHttpError')
+    assert.strictEqual(err.message, 'ES6 class HTTPError')
+    assert.strictEqual(err.status, 404)
+    assert.strictEqual(err.myProp, 'test')
+    /* eslint-disable-next-line node/no-deprecated-api */
+    assert.strictEqual(util.isError(err), true)
+    assert.strictEqual(createError.isHttpError(err), true)
+  })
 })
