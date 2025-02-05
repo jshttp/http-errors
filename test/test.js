@@ -12,7 +12,7 @@ describe('createError(status)', function () {
   })
 
   describe('Extending Existing Errors with HTTP Properties', function () {
-    it('should extend an existing error with HTTP properties without altering its prototype', function () {
+    it('should extend existing error without altering its prototype or replacing the object', function () {
       var nativeError = new Error('This is a test error')
 
       // Extend the error with HTTP semantics
@@ -26,6 +26,8 @@ describe('createError(status)', function () {
       assert(httpError instanceof Error)
 
       assert.strictEqual(Object.getPrototypeOf(httpError), Error.prototype)
+
+      assert.strictEqual(nativeError, httpError)
     })
   })
 
