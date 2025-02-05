@@ -13,10 +13,10 @@ describe('createError(status)', function () {
 
   describe('Extending Existing Errors with HTTP Properties', function () {
     it('should extend an existing error with HTTP properties without altering its prototype', function () {
-      const nativeError = new Error('This is a test error')
+      var nativeError = new Error('This is a test error')
 
       // Extend the error with HTTP semantics
-      const httpError = createError(404, nativeError, { expose: false })
+      var httpError = createError(404, nativeError, { expose: false })
 
       assert.strictEqual(httpError.status, 404)
       assert.strictEqual(httpError.expose, false)
