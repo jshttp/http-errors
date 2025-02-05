@@ -27,7 +27,7 @@ describe('createError(status)', function () {
 
       assert.strictEqual(Object.getPrototypeOf(httpError), Error.prototype)
 
-      assert.strictEqual(nativeError, httpError)
+      assert.strictEqual(httpError, nativeError)
     })
   })
 
