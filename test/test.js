@@ -198,6 +198,29 @@ describe('createError.isHttpError(val)', function () {
   })
 })
 
+describe('Subclass Instantiation', function () {
+  it('should allow instantiation of ClientError subclasses', function () {
+    assert.doesNotThrow(() => {
+      // eslint-disable-next-line no-new
+      new createError.NotFound()
+    })
+    assert.doesNotThrow(() => {
+      // eslint-disable-next-line no-new
+      createError.NotFound()
+    })
+  })
+
+  it('should allow instantiation of ServerError subclasses', function () {
+    assert.doesNotThrow(() => {
+      // eslint-disable-next-line no-new
+      new createError.InternalServerError()
+    })
+    assert.doesNotThrow(() => {
+      createError.InternalServerError()
+    })
+  })
+})
+
 describe('HTTP Errors', function () {
   it('createError(status, props)', function () {
     var err = createError(404, {
@@ -356,9 +379,13 @@ describe('HTTP Errors', function () {
     assert.strictEqual(err.expose, false)
   })
 
-  it('new createError.HttpError()', function () {
+  it('should throw when directly instantiating HttpError', function () {
     assert.throws(function () {
       new createError.HttpError() // eslint-disable-line no-new
+    }, /cannot construct abstract class/)
+
+    assert.throws(function () {
+      createError.HttpError()
     }, /cannot construct abstract class/)
   })
 
