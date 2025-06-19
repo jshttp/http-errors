@@ -2,6 +2,8 @@ Unreleased changes
 ==================
 
   * improve toClassName function readability and JSDoc completeness
+  * deps: use tilde notation for dependencies
+  * deps: update statuses to 2.0.2
 
 2.0.0 / 2021-12-17
 ==================

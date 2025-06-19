@@ -10,11 +10,11 @@
   "license": "MIT",
   "repository": "jshttp/http-errors",
   "dependencies": {
-    "depd": "2.0.0",
-    "inherits": "2.0.4",
-    "setprototypeof": "1.2.0",
-    "statuses": "2.0.1",
-    "toidentifier": "1.0.1"
+    "depd": "~2.0.0",
+    "inherits": "~2.0.4",
+    "setprototypeof": "~1.2.0",
+    "statuses": "~2.0.2",
+    "toidentifier": "~1.0.1"
   },
   "devDependencies": {
     "eslint": "7.32.0",
