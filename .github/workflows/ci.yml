@@ -14,6 +14,7 @@ jobs:
       contents: read  # for actions/checkout to fetch code
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         name:
         - Node.js 0.8
@@ -36,6 +37,13 @@ jobs:
         - Node.js 15.x
         - Node.js 16.x
         - Node.js 17.x
+        - Node.js 18.x
+        - Node.js 19.x
+        - Node.js 20.x
+        - Node.js 21.x
+        - Node.js 22.x
+        - Node.js 23.x
+        - Node.js 24.x
 
         include:
         - name: Node.js 0.8
@@ -112,6 +120,27 @@ jobs:
 
         - name: Node.js 17.x
           node-version: "17.2"
+        
+        - name: Node.js 18.x
+          node-version: "18"
+        
+        - name: Node.js 19.x
+          node-version: "19"
+
+        - name: Node.js 20.x
+          node-version: "20"
+
+        - name: Node.js 21.x
+          node-version: "21"
+        
+        - name: Node.js 22.x
+          node-version: "22"
+
+        - name: Node.js 23.x
+          node-version: "23"
+
+        - name: Node.js 24.x
+          node-version: "24"       
 
     steps:
     - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -129,7 +158,12 @@ jobs:
         dirname "$(nvm which ${{ matrix.node-version }})" >> "$GITHUB_PATH"
 
     - name: Configure npm
-      run: npm config set shrinkwrap false
+      run: |
+        if [[ "$(npm config get package-lock)" == "true" ]]; then
+          npm config set package-lock false
+        else
+          npm config set shrinkwrap false
+        fi
 
     - name: Remove npm module(s) ${{ matrix.npm-rm }}
       run: npm rm --silent --save-dev ${{ matrix.npm-rm }}
