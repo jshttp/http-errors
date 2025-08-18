@@ -6,8 +6,16 @@ var util = require('util')
 
 var createError = require('..')
 
-// eslint-disable-next-line node/no-deprecated-api
-var isError = typeof Error.isError === 'function' ? Error.isError : util.isError
+var isError = typeof Error.isError === 'function'
+  ? Error.isError
+  // eslint-disable-next-line node/no-deprecated-api
+  : typeof util.isError === 'function'
+    // eslint-disable-next-line node/no-deprecated-api
+    ? util.isError
+    // Fallback for Node.js v23: util.isError was removed in Node.js v23 (EOL), and Error.isError was introduced in Node.js v24
+    : function (err) {
+      return err instanceof Error
+    }
 
 var itErrorIsError = typeof Error.isError === 'function'
   ? it
