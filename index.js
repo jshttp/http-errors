@@ -110,12 +110,16 @@ function createError () {
  */
 
 function createHttpErrorConstructor () {
-  function HttpError () {
-    throw new TypeError('cannot construct abstract class')
+  class HttpError extends Error {
+    constructor (status, message) {
+      super(message != null ? message : statuses.message[status] || 'Error')
+      this.status = status != null ? status : 500
+      this.statusCode = this.status
+      this.expose = this.status < 500
+      // Set the name for consistency
+      this.name = 'HttpError'
+    }
   }
-
-  inherits(HttpError, Error)
-
   return HttpError
 }
 
