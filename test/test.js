@@ -331,6 +331,15 @@ describe('HTTP Errors', function () {
     assert.strictEqual(err.expose, false)
   })
 
+  it('createError(NaN) should default to 500', function () {
+    var err = createError(NaN)
+    assert.strictEqual(err.name, 'InternalServerError')
+    assert.strictEqual(err.message, 'Internal Server Error')
+    assert.strictEqual(err.status, 500)
+    assert.strictEqual(err.statusCode, 500)
+    assert.strictEqual(err.expose, false)
+  })
+
   it('createError(err, props)', function () {
     var _err = new Error('LOL')
     _err.status = 404
