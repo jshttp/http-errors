@@ -6,9 +6,49 @@ var util = require('util')
 
 var createError = require('..')
 
+var isError = typeof Error.isError === 'function'
+  ? Error.isError
+  // eslint-disable-next-line node/no-deprecated-api
+  : typeof util.isError === 'function'
+    // eslint-disable-next-line node/no-deprecated-api
+    ? util.isError
+    // Fallback for Node.js v23: util.isError was removed in Node.js v23 (EOL), and Error.isError was introduced in Node.js v24
+    : function (err) {
+      return err instanceof Error
+    }
+
+var itErrorIsError = typeof Error.isError === 'function'
+  ? it
+  : it.skip
+
+// eslint-disable-next-line node/no-deprecated-api
+var itUtilIsError = typeof util.isError === 'function'
+  ? it
+  : it.skip
+
 describe('createError(status)', function () {
   it('should create error object', function () {
-    assert.ok(util.isError(createError(500))) // eslint-disable-line node/no-deprecated-api
+    assert.ok(isError(createError(500)))
+  })
+
+  describe('Extending Existing Errors with HTTP Properties', function () {
+    it('should extend existing error without altering its prototype or replacing the object', function () {
+      var nativeError = new Error('This is a test error')
+
+      // Extend the error with HTTP semantics
+      var httpError = createError(404, nativeError, { expose: false })
+
+      assert.strictEqual(httpError.status, 404)
+      assert.strictEqual(httpError.expose, false)
+
+      assert.strictEqual(httpError.message, 'This is a test error')
+
+      assert(httpError instanceof Error)
+
+      assert.strictEqual(Object.getPrototypeOf(httpError), Error.prototype)
+
+      assert.strictEqual(httpError, nativeError)
+    })
   })
 
   describe('when status 300', function () {
@@ -106,7 +146,7 @@ describe('createError(status, message)', function () {
   })
 
   it('should create error object', function () {
-    assert.ok(util.isError(this.error)) // eslint-disable-line node/no-deprecated-api
+    assert.ok(isError(this.error))
   })
 
   it('should have "message" property with message', function () {
@@ -399,12 +439,18 @@ describe('HTTP Errors', function () {
     assert((new createError['500']()) instanceof createError.HttpError)
   })
 
-  it('should support util.isError()', function () {
+  itUtilIsError('should support util.isError()', function () {
     /* eslint-disable node/no-deprecated-api */
     assert(util.isError(createError(404)))
     assert(util.isError(new createError['404']()))
     assert(util.isError(new createError['500']()))
     /* eslint-enable node/no-deprecated-api */
+  })
+
+  itErrorIsError('should support Error.isError()', function () {
+    assert(Error.isError(createError(404)))
+    assert(Error.isError(new createError['404']()))
+    assert(Error.isError(new createError['500']()))
   })
 })
 

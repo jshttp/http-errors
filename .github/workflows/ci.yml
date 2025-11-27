@@ -4,10 +4,17 @@ on:
 - pull_request
 - push
 
+permissions:
+  contents: read
+
 jobs:
   test:
-    runs-on: ubuntu-20.04
+    permissions:
+      checks: write  # for coverallsapp/github-action to create new checks
+      contents: read  # for actions/checkout to fetch code
+    runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         name:
         - Node.js 0.8
@@ -30,6 +37,13 @@ jobs:
         - Node.js 15.x
         - Node.js 16.x
         - Node.js 17.x
+        - Node.js 18.x
+        - Node.js 19.x
+        - Node.js 20.x
+        - Node.js 21.x
+        - Node.js 22.x
+        - Node.js 23.x
+        - Node.js 24.x
 
         include:
         - name: Node.js 0.8
@@ -75,11 +89,11 @@ jobs:
 
         - name: Node.js 8.x
           node-version: "8.17"
-          npm-i: mocha@7.2.0
+          npm-i: mocha@7.2.0 nyc@14.1.1
 
         - name: Node.js 9.x
           node-version: "9.11"
-          npm-i: mocha@7.2.0
+          npm-i: mocha@7.2.0 nyc@14.1.1
 
         - name: Node.js 10.x
           node-version: "10.24"
@@ -106,9 +120,30 @@ jobs:
 
         - name: Node.js 17.x
           node-version: "17.2"
+        
+        - name: Node.js 18.x
+          node-version: "18"
+        
+        - name: Node.js 19.x
+          node-version: "19"
+
+        - name: Node.js 20.x
+          node-version: "20"
+
+        - name: Node.js 21.x
+          node-version: "21"
+        
+        - name: Node.js 22.x
+          node-version: "22"
+
+        - name: Node.js 23.x
+          node-version: "23"
+
+        - name: Node.js 24.x
+          node-version: "24"       
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
     - name: Install Node.js ${{ matrix.node-version }}
       shell: bash -eo pipefail -l {0}
@@ -123,7 +158,12 @@ jobs:
         dirname "$(nvm which ${{ matrix.node-version }})" >> "$GITHUB_PATH"
 
     - name: Configure npm
-      run: npm config set shrinkwrap false
+      run: |
+        if [[ "$(npm config get package-lock)" == "true" ]]; then
+          npm config set package-lock false
+        else
+          npm config set shrinkwrap false
+        fi
 
     - name: Remove npm module(s) ${{ matrix.npm-rm }}
       run: npm rm --silent --save-dev ${{ matrix.npm-rm }}
@@ -171,7 +211,7 @@ jobs:
       run: npm run lint
 
     - name: Collect code coverage
-      uses: coverallsapp/github-action@master
+      uses: coverallsapp/github-action@648a8eb78e6d50909eff900e4ec85cab4524a45b # master
       if: steps.list_env.outputs.nyc != ''
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -179,11 +219,13 @@ jobs:
         parallel: true
 
   coverage:
+    permissions:
+      checks: write  # for coverallsapp/github-action to create new checks
     needs: test
     runs-on: ubuntu-latest
     steps:
     - name: Upload code coverage
-      uses: coverallsapp/github-action@master
+      uses: coverallsapp/github-action@648a8eb78e6d50909eff900e4ec85cab4524a45b # master
       with:
         github-token: ${{ secrets.github_token }}
         parallel-finished: true
