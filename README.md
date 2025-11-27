@@ -152,6 +152,10 @@ var err = new createError.NotFound()
 |510        |NotExtended                  |
 |511        |NetworkAuthenticationRequired|
 
+## Handling the errors
+
+If used with Express, the [default error handler](https://expressjs.com/en/guide/error-handling.html) will handle errors created using `http-errors` and respond with an appropriate HTML response. If you are developing an API and need to send and handle JSON responses, you might want to create your own error handler, or use a module like [`error-handler-json`](https://github.com/mifi/error-handler-json) (based on the unmaintained [`api-error-handler`](https://github.com/expressjs/api-error-handler) project.)
+
 ## License
 
 [MIT](LICENSE)
