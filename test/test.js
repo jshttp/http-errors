@@ -31,6 +31,23 @@ describe('createError(status)', function () {
     assert.ok(isError(createError(500)))
   })
 
+  describe('ES6 class extension (issue #98)', function () {
+    it('should allow extending HttpError with ES6 class', function () {
+      class MyHttpError extends createError.HttpError {
+        constructor (message) {
+          super(418, message)
+          this.custom = true
+        }
+      }
+      const err = new MyHttpError('I am a teapot')
+      assert.strictEqual(err.status, 418)
+      assert.strictEqual(err.message, 'I am a teapot')
+      assert.strictEqual(err.custom, true)
+      assert.ok(err instanceof createError.HttpError)
+      assert.ok(err instanceof Error)
+    })
+  })
+
   describe('Extending Existing Errors with HTTP Properties', function () {
     it('should extend existing error without altering its prototype or replacing the object', function () {
       var nativeError = new Error('This is a test error')
@@ -377,9 +394,13 @@ describe('HTTP Errors', function () {
   })
 
   it('new createError.HttpError()', function () {
-    assert.throws(function () {
-      new createError.HttpError() // eslint-disable-line no-new
-    }, /cannot construct abstract class/)
+    var err = new createError.HttpError(404, 'Not Found')
+    assert.strictEqual(err.name, 'HttpError')
+    assert.strictEqual(err.message, 'Not Found')
+    assert.strictEqual(err.status, 404)
+    assert.strictEqual(err.statusCode, 404)
+    assert.strictEqual(err.expose, true)
+    assert(err.stack)
   })
 
   it('new createError.NotFound()', function () {
