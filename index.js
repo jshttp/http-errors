@@ -70,7 +70,7 @@ function createError () {
   }
 
   if (typeof status === 'number' && (status < 400 || status >= 600)) {
-    deprecate('non-error status code; use only 4xx or 5xx status codes')
+    deprecate('non-error status code ' + status + '; use only 4xx or 5xx status codes')
   }
 
   if (typeof status !== 'number' ||

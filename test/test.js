@@ -453,3 +453,17 @@ describe('HTTP Errors', function () {
     assert(Error.isError(new createError['500']()))
   })
 })
+
+describe('Deprecation notice', function () {
+  it('createError() deprecated', function (done) {
+    process.on('deprecation', (warning) => {
+      assert.strictEqual(warning.name, 'DeprecationError')
+      assert.strictEqual(warning.message, 'non-error status code 999; use only 4xx or 5xx status codes')
+      done()
+    })
+
+    createError(999, {
+      id: 1
+    })
+  })
+})
