@@ -453,3 +453,126 @@ describe('HTTP Errors', function () {
     assert(Error.isError(new createError['500']()))
   })
 })
+
+describe('createError() with no arguments', function () {
+  before(function () {
+    this.error = createError()
+  })
+
+  it('should default to status 500', function () {
+    assert.strictEqual(this.error.status, 500)
+    assert.strictEqual(this.error.statusCode, 500)
+  })
+
+  it('should have default message "Internal Server Error"', function () {
+    assert.strictEqual(this.error.message, 'Internal Server Error')
+  })
+
+  it('should have expose set to false', function () {
+    assert.strictEqual(this.error.expose, false)
+  })
+})
+
+describe('createError(err) with err.statusCode', function () {
+  it('should use err.statusCode when err.status is not set', function () {
+    var _err = new Error('Something failed')
+    _err.statusCode = 503
+    var err = createError(_err)
+    assert.strictEqual(err, _err)
+    assert.strictEqual(err.status, 503)
+    assert.strictEqual(err.statusCode, 503)
+    assert.strictEqual(err.expose, false)
+  })
+
+  it('should prefer err.status over err.statusCode', function () {
+    var _err = new Error('Conflict')
+    _err.status = 409
+    _err.statusCode = 500
+    var err = createError(_err)
+    assert.strictEqual(err.status, 409)
+    assert.strictEqual(err.statusCode, 409)
+    assert.strictEqual(err.expose, true)
+  })
+})
+
+describe('expose property', function () {
+  it('should be true for 4xx errors created via factory', function () {
+    assert.strictEqual(createError(400).expose, true)
+    assert.strictEqual(createError(404).expose, true)
+    assert.strictEqual(createError(499).expose, true)
+  })
+
+  it('should be false for 5xx errors created via factory', function () {
+    assert.strictEqual(createError(500).expose, false)
+    assert.strictEqual(createError(503).expose, false)
+    assert.strictEqual(createError(599).expose, false)
+  })
+
+  it('should be true for 4xx named constructors', function () {
+    assert.strictEqual(new createError.BadRequest().expose, true)
+    assert.strictEqual(new createError.Unauthorized().expose, true)
+    assert.strictEqual(new createError.Forbidden().expose, true)
+    assert.strictEqual(new createError.NotFound().expose, true)
+  })
+
+  it('should be false for 5xx named constructors', function () {
+    assert.strictEqual(new createError.InternalServerError().expose, false)
+    assert.strictEqual(new createError.BadGateway().expose, false)
+    assert.strictEqual(new createError.ServiceUnavailable().expose, false)
+    assert.strictEqual(new createError.GatewayTimeout().expose, false)
+  })
+})
+
+describe('custom headers via properties', function () {
+  it('should attach headers from properties object', function () {
+    var err = createError(401, 'Authentication required', {
+      headers: {
+        'www-authenticate': 'Bearer realm="example"'
+      }
+    })
+    assert.strictEqual(err.status, 401)
+    assert.deepStrictEqual(err.headers, {
+      'www-authenticate': 'Bearer realm="example"'
+    })
+  })
+
+  it('should not have headers by default', function () {
+    var err = createError(404)
+    assert.strictEqual(err.headers, undefined)
+  })
+})
+
+describe('createError argument type validation', function () {
+  it('should throw TypeError for boolean argument', function () {
+    assert.throws(function () {
+      createError(true)
+    }, /unsupported type boolean/)
+  })
+
+  it('should throw TypeError for function argument', function () {
+    assert.throws(function () {
+      createError(404, function () {})
+    }, /unsupported type function/)
+  })
+})
+
+describe('named constructor with custom message', function () {
+  it('should use custom message for client error', function () {
+    var err = new createError.BadRequest('Invalid email format')
+    assert.strictEqual(err.message, 'Invalid email format')
+    assert.strictEqual(err.status, 400)
+    assert.strictEqual(err.statusCode, 400)
+  })
+
+  it('should use custom message for server error', function () {
+    var err = new createError.ServiceUnavailable('Database connection lost')
+    assert.strictEqual(err.message, 'Database connection lost')
+    assert.strictEqual(err.status, 503)
+    assert.strictEqual(err.statusCode, 503)
+  })
+
+  it('should use default message when null is passed', function () {
+    var err = new createError.NotFound(null)
+    assert.strictEqual(err.message, 'Not Found')
+  })
+})
