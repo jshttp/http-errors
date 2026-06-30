@@ -138,6 +138,28 @@ describe('createError(status)', function () {
       assert.strictEqual(this.error.statusCode, 599)
     })
   })
+
+  describe('when status is NaN', function () {
+    before(function () {
+      this.error = createError(NaN)
+    })
+
+    it('should have "message" property of "Internal Server Error"', function () {
+      assert.strictEqual(this.error.message, 'Internal Server Error')
+    })
+
+    it('should have "name" property of "InternalServerError"', function () {
+      assert.strictEqual(this.error.name, 'InternalServerError')
+    })
+
+    it('should have "status" property of 500', function () {
+      assert.strictEqual(this.error.status, 500)
+    })
+
+    it('should have "statusCode" property of 500', function () {
+      assert.strictEqual(this.error.statusCode, 500)
+    })
+  })
 })
 
 describe('createError(status, message)', function () {

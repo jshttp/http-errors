@@ -73,7 +73,7 @@ function createError () {
     deprecate('non-error status code; use only 4xx or 5xx status codes')
   }
 
-  if (typeof status !== 'number' ||
+  if (typeof status !== 'number' || isNaN(status) ||
     (!statuses.message[status] && (status < 400 || status >= 600))) {
     status = 500
   }
