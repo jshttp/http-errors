@@ -50,5 +50,9 @@
     "HISTORY.md",
     "LICENSE",
     "README.md"
-  ]
+  ],
+  "homepage": "https://github.com/jshttp/http-errors",
+  "bugs": {
+    "url": "https://github.com/jshttp/http-errors/issues"
+  }
 }
