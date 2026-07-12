@@ -94,17 +94,19 @@ matches the "duck type" for an error this module creates. All outputs from
 the `createError` factory will return `true` for this function, including
 if an non-`HttpError` was passed into the factory.
 
-### new createError\[code || name\](\[msg]\))
+### new createError\[code || name\](\[msg], \[properties])
 
 Create a new error object with the given message `msg`.
 The error object inherits from `createError.HttpError`.
 
 ```js
-var err = new createError.NotFound()
+var err = new createError.NotFound('This video does not exist!', { expose: true })
 ```
 
 - `code` - the status code as a number
 - `name` - the name of the error as a "bumpy case", i.e. `NotFound` or `InternalServerError`.
+- `msg` - the message of the error, defaulting to node's text for that status code.
+- `properties` - custom properties to attach to the object
 
 #### List of all constructors
 
