@@ -95,13 +95,23 @@ function createError () {
     err.status = err.statusCode = status
   }
 
+  assignProperties(err, props)
+
+  return err
+}
+
+/**
+ * Add custom properties to an error object.
+ *
+ * @private
+ */
+
+function assignProperties (err, props) {
   for (var key in props) {
     if (key !== 'status' && key !== 'statusCode') {
       err[key] = props[key]
     }
   }
-
-  return err
 }
 
 /**
@@ -127,7 +137,7 @@ function createHttpErrorConstructor () {
 function createClientErrorConstructor (HttpError, name, code) {
   var className = toClassName(name)
 
-  function ClientError (message) {
+  function ClientError (message, props) {
     // create the error object
     var msg = message != null ? message : statuses.message[code]
     var err = new Error(msg)
@@ -153,6 +163,8 @@ function createClientErrorConstructor (HttpError, name, code) {
       value: className,
       writable: true
     })
+
+    assignProperties(err, props)
 
     return err
   }
@@ -196,7 +208,7 @@ function createIsHttpErrorFunction (HttpError) {
 function createServerErrorConstructor (HttpError, name, code) {
   var className = toClassName(name)
 
-  function ServerError (message) {
+  function ServerError (message, props) {
     // create the error object
     var msg = message != null ? message : statuses.message[code]
     var err = new Error(msg)
@@ -222,6 +234,8 @@ function createServerErrorConstructor (HttpError, name, code) {
       value: className,
       writable: true
     })
+
+    assignProperties(err, props)
 
     return err
   }

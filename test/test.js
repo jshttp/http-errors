@@ -392,6 +392,21 @@ describe('HTTP Errors', function () {
     assert(err.stack)
   })
 
+  it('new createError.NotFound(msg, props)', function () {
+    var err = new createError.NotFound('missing', {
+      expose: false,
+      id: 1,
+      status: 500,
+      statusCode: 500
+    })
+    assert.strictEqual(err.name, 'NotFoundError')
+    assert.strictEqual(err.message, 'missing')
+    assert.strictEqual(err.status, 404)
+    assert.strictEqual(err.statusCode, 404)
+    assert.strictEqual(err.expose, false)
+    assert.strictEqual(err.id, 1)
+  })
+
   it('new createError.InternalServerError()', function () {
     var err = new createError.InternalServerError()
     assert.strictEqual(err.name, 'InternalServerError')
@@ -400,6 +415,21 @@ describe('HTTP Errors', function () {
     assert.strictEqual(err.statusCode, 500)
     assert.strictEqual(err.expose, false)
     assert(err.stack)
+  })
+
+  it('new createError.InternalServerError(msg, props)', function () {
+    var err = new createError.InternalServerError('boom', {
+      expose: true,
+      id: 1,
+      status: 404,
+      statusCode: 404
+    })
+    assert.strictEqual(err.name, 'InternalServerError')
+    assert.strictEqual(err.message, 'boom')
+    assert.strictEqual(err.status, 500)
+    assert.strictEqual(err.statusCode, 500)
+    assert.strictEqual(err.expose, true)
+    assert.strictEqual(err.id, 1)
   })
 
   it('new createError["404"]()', function () {
