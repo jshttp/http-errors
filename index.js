@@ -96,7 +96,7 @@ function createError () {
   }
 
   for (var key in props) {
-    if (key !== 'status' && key !== 'statusCode') {
+    if (key !== 'status' && key !== 'statusCode' && key !== '__proto__') {
       err[key] = props[key]
     }
   }

@@ -49,6 +49,21 @@ describe('createError(status)', function () {
 
       assert.strictEqual(httpError, nativeError)
     })
+
+    it('should not allow a __proto__ property to alter the prototype', function () {
+      var nativeError = new Error('This is a test error')
+
+      var httpError = createError(404, nativeError, JSON.parse('{"__proto__":{"evil":true}}'))
+
+      assert.strictEqual(httpError.status, 404)
+      assert.strictEqual(httpError.evil, undefined)
+
+      assert(httpError instanceof Error)
+
+      assert.strictEqual(Object.getPrototypeOf(httpError), Error.prototype)
+
+      assert.strictEqual(httpError, nativeError)
+    })
   })
 
   describe('when status 300', function () {
