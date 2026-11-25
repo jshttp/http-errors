@@ -49,6 +49,8 @@
     "index.js",
     "HISTORY.md",
     "LICENSE",
-    "README.md"
-  ]
+    "README.md",
+    "index.d.ts"
+  ],
+  "types": "index.d.ts"
 }
